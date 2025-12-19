@@ -109,11 +109,14 @@ export default function DiagnosisStartClient() {
   };
 
   return (
-    <div className="min-h-dvh bg-white px-5 pt-6">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">지킴진단 시작</h1>
-          <p className="mt-1 text-sm text-gray-600">
+    <div className="min-h-dvh bg-slate-50 px-[var(--spacing-5)] pt-[var(--spacing-6)] pb-[calc(env(safe-area-inset-bottom)+120px)]">
+      {/* 상단: 타이틀 + 서브카피 + 뒤로 */}
+      <div className="flex items-start justify-between gap-[var(--spacing-4)]">
+        <div className="min-w-0">
+          <h1 className="text-[length:var(--font-size-xl)] leading-[length:var(--font-leading-8)] font-bold tracking-tight text-gray-900">
+            지킴진단 시작
+          </h1>
+          <p className="mt-[var(--spacing-1)] text-[length:var(--font-size-sm)] leading-[length:var(--font-leading-6)] text-gray-600">
             {from === "property" && form.propertyId
               ? `매물에서 가져온 정보로 시작해요 (ID: ${form.propertyId})`
               : "주소와 계약 정보를 입력해주세요."}
@@ -122,120 +125,160 @@ export default function DiagnosisStartClient() {
         <button
           type="button"
           onClick={() => router.back()}
-          className="text-sm text-gray-600 underline"
+          className="shrink-0 rounded-[var(--border-radius-lg)] px-[var(--spacing-2)] py-[var(--spacing-1)] text-[length:var(--font-size-sm)] font-medium text-gray-700 hover:bg-black/5 active:bg-black/10"
         >
           뒤로
         </button>
       </div>
 
-      <div className="mt-6 space-y-4">
-        {/* 주소 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-900">주소</label>
-          <input
-            value={form.address}
-            onChange={onChange("address")}
-            placeholder="예) 서울시 송파구 ..."
-            className="w-full rounded-xl border px-4 py-3 text-base outline-none focus:ring-2 focus:ring-black/10"
-          />
-        </div>
+      <div className="mt-[var(--spacing-6)] space-y-[var(--spacing-4)]">
+        {/* 입력: 카드형 섹션으로 그룹핑 */}
+        <section className="rounded-[var(--border-radius-3xl)] border border-[color:var(--border)] bg-[color:var(--background)] p-[var(--spacing-4)] shadow-sm">
+          <div className="text-[length:var(--font-size-sm)] font-semibold text-gray-900">
+            기본 정보
+          </div>
+          <div className="mt-[var(--spacing-4)] space-y-[var(--spacing-4)]">
+            {/* 주소 */}
+            <div className="space-y-[var(--spacing-2)]">
+              <label className="block text-sm font-medium text-gray-900">
+                주소
+              </label>
+              <input
+                value={form.address}
+                onChange={onChange("address")}
+                placeholder="예) 서울시 송파구 ..."
+                className="w-full rounded-[var(--border-radius-2xl)] border border-[color:var(--border)] bg-[color:var(--background)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] text-gray-900 placeholder:text-gray-400 outline-none focus-visible:ring-2 focus-visible:ring-[var(--Zigbang-Sub-Brand-Zikim)] focus-visible:ring-opacity-20"
+              />
+            </div>
 
-        {/* 면적 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-900">
-            전용면적(㎡)
-          </label>
-          <input
-            value={form.area}
-            onChange={onAreaChange}
-            inputMode="decimal"
-            placeholder="예) 84"
-            className="w-full rounded-xl border px-4 py-3 text-base outline-none focus:ring-2 focus:ring-black/10"
-          />
-        </div>
+            {/* 면적 */}
+            <div className="space-y-[var(--spacing-2)]">
+              <label className="block text-sm font-medium text-gray-900">
+                전용면적
+              </label>
+              <div className="relative">
+                <input
+                  value={form.area}
+                  onChange={onAreaChange}
+                  inputMode="decimal"
+                  placeholder="예) 84"
+                  className="w-full rounded-[var(--border-radius-2xl)] border border-[color:var(--border)] bg-[color:var(--background)] px-[var(--spacing-4)] py-[var(--spacing-3)] pr-[var(--spacing-14)] text-right tabular-nums text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] text-gray-900 placeholder:text-gray-400 outline-none focus-visible:ring-2 focus-visible:ring-[var(--Zigbang-Sub-Brand-Zikim)] focus-visible:ring-opacity-20"
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-[var(--spacing-4)] flex items-center text-[length:var(--font-size-sm)] text-gray-500">
+                  ㎡
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* 보증금 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-900">
-            보증금(원)
-          </label>
-          <input
-            value={form.deposit}
-            onChange={onDepositChange}
-            inputMode="numeric"
-            placeholder="예) 500,000,000"
-            className="w-full rounded-xl border px-4 py-3 text-base outline-none focus:ring-2 focus:ring-black/10"
-          />
-        </div>
+        <section className="rounded-[var(--border-radius-3xl)] border border-[color:var(--border)] bg-[color:var(--background)] p-[var(--spacing-4)] shadow-sm">
+          <div className="text-[length:var(--font-size-sm)] font-semibold text-gray-900">
+            금액
+          </div>
+          <div className="mt-[var(--spacing-4)] space-y-[var(--spacing-4)]">
+            {/* 보증금 */}
+            <div className="space-y-[var(--spacing-2)]">
+              <label className="block text-sm font-medium text-gray-900">
+                보증금
+              </label>
+              <div className="relative">
+                <input
+                  value={form.deposit}
+                  onChange={onDepositChange}
+                  inputMode="numeric"
+                  placeholder="예) 500,000,000"
+                  className="w-full rounded-[var(--border-radius-2xl)] border border-[color:var(--border)] bg-[color:var(--background)] px-[var(--spacing-4)] py-[var(--spacing-3)] pr-[var(--spacing-12)] text-right tabular-nums text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] text-gray-900 placeholder:text-gray-400 outline-none focus-visible:ring-2 focus-visible:ring-[var(--Zigbang-Sub-Brand-Zikim)] focus-visible:ring-opacity-20"
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-[var(--spacing-4)] flex items-center text-[length:var(--font-size-sm)] text-gray-500">
+                  원
+                </div>
+              </div>
+            </div>
 
-        {/* 월세(선택) */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-900">
-            월세(원) <span className="text-gray-500">(선택)</span>
-          </label>
-          <input
-            value={form.monthlyRent}
-            onChange={onMonthlyRentChange}
-            inputMode="numeric"
-            placeholder="예) 1,500,000"
-            className="w-full rounded-xl border px-4 py-3 text-base outline-none focus:ring-2 focus:ring-black/10"
-          />
-        </div>
+            {/* 월세(선택) */}
+            <div className="space-y-[var(--spacing-2)]">
+              <label className="block text-sm font-medium text-gray-900">
+                월세 <span className="text-gray-500">(선택)</span>
+              </label>
+              <div className="relative">
+                <input
+                  value={form.monthlyRent}
+                  onChange={onMonthlyRentChange}
+                  inputMode="numeric"
+                  placeholder="예) 1,500,000"
+                  className="w-full rounded-[var(--border-radius-2xl)] border border-[color:var(--border)] bg-[color:var(--background)] px-[var(--spacing-4)] py-[var(--spacing-3)] pr-[var(--spacing-12)] text-right tabular-nums text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] text-gray-900 placeholder:text-gray-400 outline-none focus-visible:ring-2 focus-visible:ring-[var(--Zigbang-Sub-Brand-Zikim)] focus-visible:ring-opacity-20"
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-[var(--spacing-4)] flex items-center text-[length:var(--font-size-sm)] text-gray-500">
+                  원
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* 계약기간 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-900">
-            계약기간
-          </label>
-          <select
-            value={form.contractMonths}
-            onChange={onChange("contractMonths")}
-            className="w-full rounded-xl border px-4 py-3 text-base outline-none focus:ring-2 focus:ring-black/10"
-          >
-            <option value="12">12개월</option>
-            <option value="24">24개월</option>
-            <option value="36">36개월</option>
-          </select>
-        </div>
+        <section className="rounded-[var(--border-radius-3xl)] border border-[color:var(--border)] bg-[color:var(--background)] p-[var(--spacing-4)] shadow-sm">
+          <div className="text-[length:var(--font-size-sm)] font-semibold text-gray-900">
+            기간
+          </div>
+          <div className="mt-[var(--spacing-4)] space-y-[var(--spacing-2)]">
+            <label className="block text-sm font-medium text-gray-900">
+              계약기간
+            </label>
+            <select
+              value={form.contractMonths}
+              onChange={onChange("contractMonths")}
+              className="w-full rounded-[var(--border-radius-2xl)] border border-[color:var(--border)] bg-[color:var(--background)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-[var(--Zigbang-Sub-Brand-Zikim)] focus-visible:ring-opacity-20"
+            >
+              <option value="12">12개월</option>
+              <option value="24">24개월</option>
+              <option value="36">36개월</option>
+            </select>
+          </div>
+        </section>
 
         {/* 약관 동의 */}
-        <div className="rounded-2xl bg-slate-50 p-4">
-          <label className="flex items-start gap-3">
+        <section className="rounded-[var(--border-radius-3xl)] border border-[color:var(--border)] bg-[color:var(--background)] p-[var(--spacing-4)] shadow-sm">
+          <label className="flex items-start gap-[var(--spacing-3)]">
             <input
               type="checkbox"
               checked={form.agreed}
               onChange={onChange("agreed")}
-              className="mt-1 h-4 w-4"
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-[var(--Zigbang-Sub-Brand-Zikim)] focus:ring-[var(--Zigbang-Sub-Brand-Zikim)]"
             />
-            <div>
+            <div className="min-w-0">
               <div className="text-sm font-semibold text-gray-900">
                 필수 약관에 동의합니다
               </div>
-              <div className="mt-1 text-xs text-gray-600">
+              <div className="mt-[var(--spacing-1)] text-xs text-gray-600">
                 (임시) 서비스 이용약관/개인정보 처리방침 동의
               </div>
             </div>
           </label>
-        </div>
+        </section>
+      </div>
 
-        {/* CTA */}
-        <button
-          type="button"
-          disabled={!canSubmit}
-          onClick={handleSubmit}
-          className={[
-            "mt-2 w-full rounded-2xl p-4 text-base font-semibold shadow-sm",
-            canSubmit
-              ? "bg-gray-900 text-white"
-              : "bg-gray-200 text-gray-500 cursor-not-allowed",
-          ].join(" ")}
-        >
-          결제하기
-        </button>
-
-        <div className="pt-2 text-xs text-gray-400">
-          저장 키:{" "}
-          <span className="font-mono">sessionStorage.diagnosisFormData</span>
+      {/* 하단 CTA: sticky bottom + safe-area padding */}
+      <div className="fixed bottom-0 left-0 right-0 border-t border-[color:var(--border)] bg-white/95 backdrop-blur">
+        <div className="mx-auto w-full max-w-md px-[var(--spacing-5)] pt-[var(--spacing-3)] pb-[calc(env(safe-area-inset-bottom)+16px)]">
+          <button
+            type="button"
+            disabled={!canSubmit}
+            onClick={handleSubmit}
+            className={[
+              "w-full rounded-[var(--border-radius-3xl)] px-[var(--spacing-4)] py-[var(--spacing-4)] text-[length:var(--font-size-base)] leading-[length:var(--font-leading-7)] font-semibold shadow-sm transition",
+              canSubmit
+                ? "bg-[var(--Zigbang-Sub-Brand-Zikim)] text-white hover:opacity-95 active:opacity-90"
+                : "cursor-not-allowed bg-gray-200 text-gray-500 opacity-70",
+            ].join(" ")}
+          >
+            결제하기
+          </button>
+          {!canSubmit ? (
+            <div className="mt-[var(--spacing-2)] text-center text-xs text-gray-600">
+              필수 항목을 입력하고 약관에 동의해주세요.
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
