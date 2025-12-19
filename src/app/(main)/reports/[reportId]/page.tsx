@@ -147,14 +147,16 @@ export default function ReportDetailPage() {
   }, []);
 
   return (
-    <div className="min-h-dvh bg-white px-5 pt-6">
+    <div className="min-h-dvh bg-slate-50 px-[var(--spacing-5)] pt-[var(--spacing-6)] pb-[calc(env(safe-area-inset-bottom)+var(--spacing-10))]">
       {/* 헤더 */}
-      <h1 className="text-xl font-bold text-gray-900">지킴진단 리포트</h1>
+      <h1 className="text-[length:var(--font-size-xl)] leading-[length:var(--font-leading-8)] font-bold tracking-tight text-gray-900">
+        지킴진단 리포트
+      </h1>
 
       {/* AI 요약 */}
       <div
         className={[
-          "mt-4 rounded-2xl p-4",
+          "mt-[var(--spacing-4)] rounded-[var(--border-radius-3xl)] p-[var(--spacing-4)]",
           reportType === "risky"
             ? "bg-red-50 text-red-700"
             : "bg-green-50 text-green-700",
@@ -175,7 +177,7 @@ export default function ReportDetailPage() {
       </div>
 
       {/* 탭 (Sticky) */}
-      <div className="sticky top-0 z-10 -mx-5 mt-6 border-b bg-white px-5">
+      <div className="sticky top-0 z-10 -mx-[var(--spacing-5)] mt-[var(--spacing-6)] border-b border-[color:var(--border)] bg-white/95 px-[var(--spacing-5)] backdrop-blur">
         <div className="flex gap-3 overflow-x-auto">
           {TABS.map((t) => {
             const isActive = activeTab === t.key;

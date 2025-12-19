@@ -16,21 +16,41 @@ export default async function PropertyDetailPage({
   )}&area=${encodeURIComponent(area)}&from=property&id=${encodeURIComponent(id)}`;
 
   return (
-    <div className="min-h-dvh bg-white px-5 pt-6">
-      <h1 className="text-xl font-bold text-gray-900">매물 상세</h1>
-      <p className="mt-2 text-sm text-gray-600">매물 ID: {id}</p>
+    <div className="px-[var(--spacing-5)] pt-[var(--spacing-6)] pb-[calc(env(safe-area-inset-bottom)+var(--spacing-10))]">
+      <div className="flex items-start justify-between gap-[var(--spacing-4)]">
+        <div className="min-w-0">
+          <h1 className="text-[length:var(--font-size-xl)] leading-[length:var(--font-leading-8)] font-bold tracking-tight text-gray-900">
+            매물 상세
+          </h1>
+          <p className="mt-[var(--spacing-1)] text-[length:var(--font-size-sm)] leading-[length:var(--font-leading-6)] text-gray-600">
+            매물 ID: {id}
+          </p>
+        </div>
+        <Link
+          href="/property"
+          className="shrink-0 rounded-[var(--border-radius-lg)] px-[var(--spacing-2)] py-[var(--spacing-1)] text-[length:var(--font-size-sm)] font-medium text-gray-700 hover:bg-black/5 active:bg-black/10"
+        >
+          목록
+        </Link>
+      </div>
 
-      <div className="mt-6 rounded-2xl border p-4">
+      <div className="mt-[var(--spacing-6)] rounded-[var(--border-radius-3xl)] border border-[color:var(--border)] bg-white p-[var(--spacing-5)] shadow-sm">
         <div className="text-sm font-semibold text-gray-900">주소</div>
-        <div className="mt-1 text-sm text-gray-700">{address}</div>
+        <div className="mt-[var(--spacing-1)] text-sm text-gray-700">
+          {address}
+        </div>
 
-        <div className="mt-4 text-sm font-semibold text-gray-900">면적</div>
-        <div className="mt-1 text-sm text-gray-700">{area}㎡</div>
+        <div className="mt-[var(--spacing-4)] text-sm font-semibold text-gray-900">
+          전용면적
+        </div>
+        <div className="mt-[var(--spacing-1)] text-sm text-gray-700">
+          {area}㎡
+        </div>
       </div>
 
       <Link
         href={href}
-        className="mt-6 block w-full rounded-2xl bg-gray-900 py-4 text-center text-sm font-semibold text-white"
+        className="mt-[var(--spacing-6)] block w-full rounded-[var(--border-radius-3xl)] bg-[var(--Zigbang-Sub-Brand-Zikim)] py-[var(--spacing-4)] text-center text-[length:var(--font-size-base)] font-semibold text-white shadow-sm hover:opacity-95 active:opacity-90"
       >
         지킴진단하기
       </Link>
