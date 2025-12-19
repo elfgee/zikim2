@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type DiagnosisFormData = {
   address: string;
-  area: string; // 전용면적(㎡) 문자열로 관리 (입력폼 편의)
+  area: string;
   deposit: string; // 보증금(원) 문자열
   monthlyRent: string; // 월세(원) 문자열 (선택)
   contractMonths: string; // 계약기간(개월)
@@ -21,7 +21,6 @@ function onlyDigits(v: string) {
 function formatNumberWithComma(v: string) {
   const digits = onlyDigits(v);
   if (!digits) return "";
-  // 앞자리 0 제거(단, "0"은 허용)
   const normalized = digits.replace(/^0+(?=\d)/, "");
   return normalized.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -32,6 +31,10 @@ export default function DiagnosisStartClient() {
 
   const fromParam = searchParams.get("from");
   const idParam = searchParams.get("id");
+
+  // ✅ property 상세에서 넘긴 값
+  const addressParam = searchParams.get("address") ?? "";
+  const areaParam = searchParams.get("area") ?? "";
 
   const from = useMemo<"gateway" | "property">(() => {
     return fromParam === "property" ? "property" : "gateway";
@@ -48,25 +51,16 @@ export default function DiagnosisStartClient() {
     propertyId: from === "property" ? idParam ?? undefined : undefined,
   });
 
-  // from/property 진입 시: (초기엔 더미로) 주소/면적 자동 세팅
+  // ✅ 진입 시 query 우선 반영 (있으면 그대로 세팅)
   useEffect(() => {
-    if (from === "property" && idParam) {
-      setForm((prev) => ({
-        ...prev,
-        from: "property",
-        propertyId: idParam,
-        // TODO: 추후 API 연동 시 propertyId로 실제 주소/면적 fetch해서 세팅
-        address: prev.address || `샘플 주소 (매물ID: ${idParam})`,
-        area: prev.area || "84",
-      }));
-    } else {
-      setForm((prev) => ({
-        ...prev,
-        from: "gateway",
-        propertyId: undefined,
-      }));
-    }
-  }, [from, idParam]);
+    setForm((prev) => ({
+      ...prev,
+      from,
+      propertyId: from === "property" ? idParam ?? undefined : undefined,
+      address: addressParam || prev.address,
+      area: areaParam || prev.area,
+    }));
+  }, [from, idParam, addressParam, areaParam]);
 
   const canSubmit =
     form.address.trim().length > 0 &&
@@ -97,7 +91,6 @@ export default function DiagnosisStartClient() {
   };
 
   const onAreaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 면적은 소수점 입력 가능하게 (필요없으면 digits만)
     const v = e.target.value.replace(/[^\d.]/g, "");
     setForm((prev) => ({ ...prev, area: v }));
   };
@@ -105,15 +98,13 @@ export default function DiagnosisStartClient() {
   const handleSubmit = () => {
     if (!canSubmit) return;
 
-    // 임시 저장 (추후 API 연동하면 서버로 대체)
     const payload: DiagnosisFormData = {
       ...form,
-      deposit: onlyDigits(form.deposit), // 저장은 숫자만
+      deposit: onlyDigits(form.deposit),
       monthlyRent: onlyDigits(form.monthlyRent),
     };
 
     sessionStorage.setItem("diagnosisFormData", JSON.stringify(payload));
-
     router.push("/payment");
   };
 
@@ -242,7 +233,6 @@ export default function DiagnosisStartClient() {
           결제하기
         </button>
 
-        {/* 디버그(원하면 나중에 삭제) */}
         <div className="pt-2 text-xs text-gray-400">
           저장 키:{" "}
           <span className="font-mono">sessionStorage.diagnosisFormData</span>
@@ -251,5 +241,3 @@ export default function DiagnosisStartClient() {
     </div>
   );
 }
-
-
