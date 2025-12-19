@@ -77,6 +77,22 @@ npm run build
 pm2 restart zikim-dev0
 ```
 
+### (권장) dev0 서버에서 한 번에 배포하기
+
+아래 스크립트는 서버에서 **pull → install → build → pm2 restart**를 한 번에 수행합니다.
+
+```bash
+cd ~/apps/zikim-dev0
+chmod +x deploy-on-server.sh
+./deploy-on-server.sh
+```
+
+포트/앱 이름/브랜치를 바꾸고 싶으면 환경변수로 오버라이드할 수 있습니다:
+
+```bash
+PM2_APP_NAME=zikim-dev0 BRANCH=main ./deploy-on-server.sh
+```
+
 ---
 
 ## (옵션) 배포 브랜치(dev0) 운영
