@@ -12,9 +12,9 @@ type Tab = {
 
 const TABS: Tab[] = [
   { key: "home", label: "홈", href: "/gateway" },
-  { key: "my", label: "마이", href: "/my" },
-  { key: "search", label: "검색", disabled: true },
+  { key: "presale", label: "분양", href: "/presale" },
   { key: "wish", label: "찜", disabled: true },
+  { key: "ourhome", label: "우리집", href: "/my" },
 ];
 
 function isActive(pathname: string, href?: string) {
@@ -54,7 +54,13 @@ export default function MainTabBar() {
                 aria-disabled="true"
               >
                 <span className="text-[length:var(--font-size-xl)]">
-                  {t.key === "search" ? "🔍" : "❤️"}
+                  {t.key === "home"
+                    ? "🏠"
+                    : t.key === "presale"
+                    ? "🏗️"
+                    : t.key === "ourhome"
+                    ? "🏡"
+                    : "❤️"}
                 </span>
                 <span className="font-medium">{t.label}</span>
               </button>
@@ -72,7 +78,13 @@ export default function MainTabBar() {
               ].join(" ")}
             >
               <span className="text-[length:var(--font-size-xl)]">
-                {t.key === "home" ? "🏠" : "👤"}
+                {t.key === "home"
+                  ? "🏠"
+                  : t.key === "presale"
+                  ? "🏗️"
+                  : t.key === "ourhome"
+                  ? "🏡"
+                  : "❤️"}
               </span>
               <span>{t.label}</span>
             </Link>
