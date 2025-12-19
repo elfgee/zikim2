@@ -31,6 +31,13 @@ git checkout -B dev0 origin/dev0
 ```
 
 > dev0 브랜치는 “배포 대상 브랜치”로 쓰고, `main`은 개발/통합 브랜치로 유지하는 운영을 추천합니다.
+>
+> 만약 `origin/dev0`가 아직 없다면(초기 상태), 로컬에서 `dev0` 브랜치를 생성해 원격에 먼저 푸시한 뒤 진행하세요:
+>
+> ```bash
+> git checkout -b dev0
+> git push -u origin dev0
+> ```
 
 ### 1-3) 의존성 설치 + 빌드
 
