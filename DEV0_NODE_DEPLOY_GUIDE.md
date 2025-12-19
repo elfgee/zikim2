@@ -23,21 +23,14 @@ git clone https://github.com/elfgee/zikim2.git zikim-dev0
 cd zikim-dev0
 ```
 
-### 1-2) dev0 배포 브랜치 사용 (권장)
+### 1-2) main 브랜치 사용 (현재 운영 방식)
 
 ```bash
 git fetch origin
-git checkout -B dev0 origin/dev0
+git checkout -B main origin/main
 ```
 
-> dev0 브랜치는 “배포 대상 브랜치”로 쓰고, `main`은 개발/통합 브랜치로 유지하는 운영을 추천합니다.
->
-> 만약 `origin/dev0`가 아직 없다면(초기 상태), 로컬에서 `dev0` 브랜치를 생성해 원격에 먼저 푸시한 뒤 진행하세요:
->
-> ```bash
-> git checkout -b dev0
-> git push -u origin dev0
-> ```
+> 현재는 **`main`만** 사용합니다. (배포 브랜치 분리는 추후 필요해지면 도입)
 
 ### 1-3) 의존성 설치 + 빌드
 
@@ -64,27 +57,34 @@ pm2 startup
 
 ## 2) 배포(반복) 절차
 
-### 2-1) GitHub에서 dev0 브랜치로 배포 트리거
+### 2-1) GitHub `main` 업데이트
 
-로컬에서 아래 스크립트를 실행:
+로컬에서 작업을 커밋하고 `origin/main`으로 푸시합니다.
 
 ```bash
-./deploy-to-dev0-node.sh
+git push origin main
 ```
 
-이 스크립트는 로컬 `main`을 원격 `dev0` 브랜치로 푸시합니다.
-
-### 2-2) dev0 서버에서 pull/build/restart
+### 2-2) dev0 서버에서 pull/build/restart (main 기준)
 
 ```bash
 cd ~/apps/zikim-dev0
 git fetch origin
-git checkout dev0
-git pull --ff-only origin dev0
+git checkout main
+git pull --ff-only origin main
 npm ci
 npm run build
 pm2 restart zikim-dev0
 ```
+
+---
+
+## (옵션) 배포 브랜치(dev0) 운영
+
+나중에 “개발/배포 브랜치 분리”가 필요해지면 아래 방식으로 전환할 수 있습니다.
+
+- **개념**: 로컬 `main` → 원격 `dev0`로 푸시(배포 트리거) → dev0 서버는 `origin/dev0`만 pull
+- **트리거 스크립트**: `./deploy-to-dev0-node.sh`
 
 ---
 
