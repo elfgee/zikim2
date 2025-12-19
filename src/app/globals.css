@@ -1,5 +1,11 @@
 @import "../../Design/assets/zuiX2.0-variables.css";
 
+/* radius 정책: 8~12px 범위 내로(최대 12px) */
+:root {
+  --border-radius-2xl: 12px;
+  --border-radius-3xl: 12px;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
