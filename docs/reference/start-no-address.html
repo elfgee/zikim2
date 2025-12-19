@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지킴진단</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <button class="header-button" aria-label="뒤로가기" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="header-title">지킴진단</h1>
+      <button class="header-button" aria-label="도움말">
+        <i class="fa-solid fa-question-circle"></i>
+      </button>
+    </header>
+
+    <!-- Service Introduction -->
+    <section class="service-intro-section">
+      <div class="service-intro-content">
+        <div class="service-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h2 class="service-title">보증금 안전 진단</h2>
+        <p class="service-description">
+          매물의 계약 안정성을 전문가가 분석하여<br>
+          안전한 계약을 도와드립니다
+        </p>
+      </div>
+      
+      <!-- Diagnosis Report Contents -->
+      <div class="report-contents-box">
+        <h3 class="report-contents-title">진단 리포트 포함 내용</h3>
+        <div class="report-contents-list">
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>매물진단: 권리관계, 근저당, 전세가율 분석</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>소유자 안정성: 집주인 신뢰도 확인</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>시세 진단: 보증금 회수 위험도 평가</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>대출/보험 진단: 보증보험 가입 가능 여부</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>범죄/치안: 보안시설, 범죄발생율 분석</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>생활/편의: 편의시설 분포, 정주여건 비교</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>법적 보호 특약 조항 (위험 요소 발견 시)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Property Info Form -->
+    <section class="property-form-section">
+      <h3 class="form-section-title">매물 정보를 입력해주세요</h3>
+      
+      <!-- Address Input -->
+      <div class="form-group">
+        <label class="form-label">주소</label>
+        <div class="input-wrapper">
+          <input type="text" id="address" placeholder="주소를 입력하세요" class="form-input" readonly onclick="openAddressBottomSheet()">
+          <button class="input-icon-button" onclick="openAddressBottomSheet()">
+            <i class="fa-solid fa-map-marker-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Area Input -->
+      <div class="form-group">
+        <label class="form-label">면적</label>
+        <div class="input-wrapper">
+          <input type="text" id="area" placeholder="84" class="form-input">
+          <span class="input-suffix">㎡</span>
+        </div>
+      </div>
+
+      <!-- Deposit Input -->
+      <div class="form-group">
+        <label class="form-label">보증금 <span class="required">*</span></label>
+        <div class="input-wrapper">
+          <input type="text" id="deposit" placeholder="5억원" class="form-input">
+          <span class="input-suffix">만원</span>
+        </div>
+      </div>
+
+      <!-- Monthly Rent Input -->
+      <div class="form-group">
+        <label class="form-label">월세 <span class="optional">(선택)</span></label>
+        <div class="input-wrapper">
+          <input type="text" id="monthlyRent" placeholder="50" class="form-input">
+          <span class="input-suffix">만원</span>
+        </div>
+      </div>
+
+      <!-- Contract Period -->
+      <div class="form-group">
+        <label class="form-label">희망 계약 기간 <span class="required">*</span></label>
+        <div class="period-buttons">
+          <button class="period-button" data-period="12">1년</button>
+          <button class="period-button" data-period="24">2년</button>
+          <button class="period-button" data-period="36">3년</button>
+        </div>
+      </div>
+
+      <!-- Price Info -->
+      <div class="price-info-box">
+        <div class="price-info-row">
+          <span class="price-label">진단 비용</span>
+          <span class="price-value">29,000원</span>
+        </div>
+        <p class="price-description">결제 후 최대 20분 이내에 리포트가 발급됩니다</p>
+      </div>
+
+      <!-- Terms Agreement -->
+      <div class="terms-agreement">
+        <label class="checkbox-label">
+          <input type="checkbox" id="termsAgree" class="checkbox-input">
+          <span class="checkbox-text">서비스 이용약관 및 개인정보 처리방침에 동의합니다</span>
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="submit-button" id="submitButton" onclick="proceedToPayment()" disabled>
+        진단 시작하기
+      </button>
+    </section>
+
+    <!-- Address Bottom Sheet -->
+    <div id="addressBottomSheet" class="address-bottom-sheet">
+      <div class="address-bottom-sheet-backdrop" onclick="closeAddressBottomSheet()"></div>
+      <div class="address-bottom-sheet-content">
+        <div class="address-bottom-sheet-header">
+          <h3 class="address-bottom-sheet-title">주소 검색</h3>
+          <button class="address-bottom-sheet-close" onclick="closeAddressBottomSheet()" aria-label="닫기">
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="address-search-wrapper">
+          <div class="address-search-input-wrapper">
+            <input type="text" id="addressSearchInput" placeholder="동명(번지) 또는 도로명을 입력하세요" class="address-search-input">
+            <button class="address-search-button" onclick="searchAddress()">
+              <i class="fa-solid fa-search"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="address-results-container">
+          <div class="address-results-list" id="addressResultsList">
+            <!-- 검색 결과가 여기에 표시됩니다 -->
+            <div class="address-empty-state">
+              <i class="fa-solid fa-map-marker-alt"></i>
+              <p>주소를 검색해주세요</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedPeriod = null;
+
+    // Period button selection
+    document.querySelectorAll('.period-button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.period-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        selectedPeriod = this.dataset.period;
+        checkFormValidity();
+      });
+    });
+
+    // Form validation
+    function checkFormValidity() {
+      const address = document.getElementById('address').value.trim();
+      const area = document.getElementById('area').value.trim();
+      const deposit = document.getElementById('deposit').value.trim();
+      const termsAgree = document.getElementById('termsAgree').checked;
+
+      const isValid = address && area && deposit && selectedPeriod && termsAgree;
+      document.getElementById('submitButton').disabled = !isValid;
+      
+      if (isValid) {
+        document.getElementById('submitButton').classList.add('enabled');
+      } else {
+        document.getElementById('submitButton').classList.remove('enabled');
+      }
+    }
+
+    // Add event listeners
+    document.getElementById('address').addEventListener('input', checkFormValidity);
+    document.getElementById('area').addEventListener('input', checkFormValidity);
+    document.getElementById('deposit').addEventListener('input', checkFormValidity);
+    document.getElementById('termsAgree').addEventListener('change', checkFormValidity);
+
+    // Address Bottom Sheet Functions
+    function openAddressBottomSheet() {
+      const bottomSheet = document.getElementById('addressBottomSheet');
+      bottomSheet.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // 초기 주소 목록 표시
+      showInitialAddresses();
+      // Focus on search input
+      setTimeout(() => {
+        document.getElementById('addressSearchInput').focus();
+      }, 300);
+    }
+
+    function closeAddressBottomSheet() {
+      const bottomSheet = document.getElementById('addressBottomSheet');
+      bottomSheet.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Address Search Function
+    function searchAddress() {
+      const searchTerm = document.getElementById('addressSearchInput').value.trim();
+      const resultsList = document.getElementById('addressResultsList');
+      
+      // 샘플 주소 데이터
+      const allAddresses = [
+        '서울시 강남구 역삼동 123-45',
+        '서울시 강남구 역삼동 456-78',
+        '서울시 양천구 중앙로333 (신월동)',
+        '서울시 양천구 신월동 789-12',
+        '서울시 서초구 서초동 234-56',
+        '서울시 송파구 잠실동 345-67',
+        '서울시 마포구 상암동 567-89',
+        '서울시 영등포구 여의도동 678-90'
+      ];
+      
+      if (!searchTerm) {
+        // 검색어가 없으면 모든 주소 표시
+        displayAddressResults(allAddresses, resultsList);
+        return;
+      }
+      
+      const filteredAddresses = allAddresses.filter(addr => addr.includes(searchTerm));
+      
+      if (filteredAddresses.length === 0) {
+        resultsList.innerHTML = `
+          <div class="address-empty-state">
+            <i class="fa-solid fa-search"></i>
+            <p>검색 결과가 없습니다</p>
+            <p class="address-empty-hint">다른 키워드로 검색해보세요</p>
+          </div>
+        `;
+        return;
+      }
+      
+      displayAddressResults(filteredAddresses, resultsList);
+    }
+    
+    // 주소 결과 표시 함수
+    function displayAddressResults(addresses, resultsList) {
+      // 기존 결과 초기화
+      resultsList.innerHTML = '';
+      
+      // 각 주소에 대해 요소 생성 및 이벤트 리스너 추가
+      addresses.forEach((address) => {
+        const item = document.createElement('div');
+        item.className = 'address-result-item';
+        item.setAttribute('data-address', address);
+        
+        item.innerHTML = `
+          <div class="address-result-icon">
+            <i class="fa-solid fa-map-marker-alt"></i>
+          </div>
+          <div class="address-result-content">
+            <p class="address-result-text">${address}</p>
+          </div>
+          <div class="address-result-arrow">
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+        `;
+        
+        item.addEventListener('click', function() {
+          selectAddress(address);
+        });
+        
+        resultsList.appendChild(item);
+      });
+    }
+    
+    // 초기 주소 목록 표시
+    function showInitialAddresses() {
+      const resultsList = document.getElementById('addressResultsList');
+      const allAddresses = [
+        '서울시 강남구 역삼동 123-45',
+        '서울시 강남구 역삼동 456-78',
+        '서울시 양천구 중앙로333 (신월동)',
+        '서울시 양천구 신월동 789-12',
+        '서울시 서초구 서초동 234-56',
+        '서울시 송파구 잠실동 345-67',
+        '서울시 마포구 상암동 567-89',
+        '서울시 영등포구 여의도동 678-90'
+      ];
+      displayAddressResults(allAddresses, resultsList);
+    }
+
+
+    function selectAddress(address) {
+      const addressInput = document.getElementById('address');
+      if (addressInput) {
+        addressInput.value = address;
+        checkFormValidity();
+        closeAddressBottomSheet();
+      }
+    }
+
+    // Enter key support for address search
+    document.getElementById('addressSearchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchAddress();
+      }
+    });
+
+    function proceedToPayment() {
+      // Save form data to sessionStorage
+      const formData = {
+        address: document.getElementById('address').value,
+        area: document.getElementById('area').value,
+        deposit: document.getElementById('deposit').value,
+        monthlyRent: document.getElementById('monthlyRent').value,
+        period: selectedPeriod,
+        hasAddress: false
+      };
+      sessionStorage.setItem('diagnosisFormData', JSON.stringify(formData));
+      
+      // Navigate to payment screen
+      window.location.href = 'payment.html';
+    }
+  </script>
+</body>
+</html>
+
+

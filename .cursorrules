@@ -1,0 +1,35 @@
+# Cursor Rules for Zikim Project
+
+## MCP Server Configuration
+- Figma MCP Server: http://127.0.0.1:3845/mcp
+
+## Project Guidelines
+- Use ZUIX 2.0 Design System
+- Follow Korean language requirements
+- Implement responsive design (Mobile First)
+- Use Tailwind CSS for styling
+- Reference design variables from Design/assets/zuiX2.0-variables.css
+- only Use Inter and Noto Sans KR 
+
+## Figma Integration Rules
+
+When working with Figma designs, follow the rules defined in `CURSOR_PROJECT_PROMPT.md`:
+
+### React Native Development (if applicable)
+- Use default system fonts during development
+- Apply Pretendard only at final stage globally
+- Use StyleSheet.create() or style objects only
+- Use View / Text / Pressable / ScrollView / Image components
+- Follow Flexbox column layout as default
+- Use fontWeight: '400' | '500' | '600' only
+- lineHeight: fontSize × 1.4 ~ 1.6 range
+- Minimum touch area: 44×44
+
+### Web Development (Current Project)
+- Use ZUIX 2.0 CSS variables from Design/assets/zuiX2.0-variables.css
+- Use Inter and Noto Sans KR fonts only
+- Follow mobile-first responsive design
+- Implement accordion patterns for diagnosis items
+- Safe items: collapsed by default
+- Warning items: expanded by default
+- Use 2-level risk status: "양호" (Green) / "확인 필요" (Red)

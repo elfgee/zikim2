@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지킴진단 결제</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app" class="payment-app">
+    <!-- Header -->
+    <header class="header">
+      <button class="header-button" aria-label="뒤로가기" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="header-title">지킴진단 결제</h1>
+      <button class="header-button" aria-label="닫기" id="closeButton">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </header>
+
+    <!-- Property Summary -->
+    <section class="payment-property-summary">
+      <div class="property-summary-content">
+        <div class="property-image-placeholder">
+          <i class="fa-solid fa-home"></i>
+        </div>
+        <div class="property-summary-info">
+          <div class="property-badges">
+            <span class="property-badge">월세</span>
+            <span class="property-badge">아파트</span>
+          </div>
+          <h2 class="property-summary-title" id="propertySummaryTitle">500/50</h2>
+          <p class="property-summary-address" id="propertySummaryAddress">서울시 양천구 중앙로333 (신월동) 제9층 902호 | 84㎡</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Price Section -->
+    <section class="payment-price-section">
+      <h3 class="payment-section-title">결제 정보</h3>
+      <div class="payment-info-box">
+        <div class="payment-info-row">
+          <span class="payment-info-label">지킴진단 리포트</span>
+          <span class="payment-info-value">29,900원</span>
+        </div>
+        <div class="payment-info-row">
+          <span class="payment-info-label">할인</span>
+          <span class="payment-info-value">-0원</span>
+        </div>
+        <div class="payment-info-divider"></div>
+        <div class="payment-info-row payment-total">
+          <span class="payment-info-label">총 결제금액</span>
+          <span class="payment-info-value payment-total-value">29,900원</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment Method -->
+    <section class="payment-method-section">
+      <h3 class="payment-section-title">결제 수단</h3>
+      <div class="payment-method-options">
+        <label class="payment-method-option">
+          <input type="radio" name="payment_type" value="toss_pay" checked class="payment-radio">
+          <div class="payment-radio-custom"></div>
+          <span class="payment-method-label">토스 페이</span>
+        </label>
+        <div class="payment-method-description">
+          <p class="payment-method-text">토스 브랜드 페이로 간편하게 결제하세요</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms -->
+    <section class="payment-terms-section">
+      <div class="payment-terms-list">
+        <label class="payment-term-item">
+          <input type="checkbox" id="termsService" class="payment-checkbox" required>
+          <span class="payment-checkbox-custom"></span>
+          <span class="payment-term-text">
+            <span class="payment-term-required">[필수]</span> 서비스 이용약관 및 개인정보처리방침에 동의합니다.
+          </span>
+        </label>
+        <label class="payment-term-item">
+          <input type="checkbox" id="termsPayment" class="payment-checkbox" required>
+          <span class="payment-checkbox-custom"></span>
+          <span class="payment-term-text">
+            <span class="payment-term-required">[필수]</span> 결제 대행 서비스 약관에 동의합니다.
+          </span>
+        </label>
+        <label class="payment-term-item">
+          <input type="checkbox" id="termsMarketing" class="payment-checkbox">
+          <span class="payment-checkbox-custom"></span>
+          <span class="payment-term-text">
+            <span class="payment-term-optional">[선택]</span> 마케팅 정보 수신에 동의합니다.
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Bottom Payment Button -->
+    <div class="payment-bottom-bar">
+      <button class="payment-button" id="paymentButton" type="button">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>29,900원 결제하기</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      // DOM 요소 참조
+      let termsService, termsPayment, termsMarketing, paymentButton, closeButton;
+      
+      // 초기화
+      function init() {
+        termsService = document.getElementById('termsService');
+        termsPayment = document.getElementById('termsPayment');
+        termsMarketing = document.getElementById('termsMarketing');
+        paymentButton = document.getElementById('paymentButton');
+        closeButton = document.getElementById('closeButton');
+        
+        if (!termsService || !termsPayment || !paymentButton) {
+          console.error('필수 요소를 찾을 수 없습니다.');
+          return;
+        }
+        
+        // 이벤트 리스너 등록
+        termsService.addEventListener('change', checkPaymentValidity);
+        termsPayment.addEventListener('change', checkPaymentValidity);
+        if (termsMarketing) {
+          termsMarketing.addEventListener('change', checkPaymentValidity);
+        }
+        
+        paymentButton.addEventListener('click', handlePaymentClick);
+        
+        if (closeButton) {
+          closeButton.addEventListener('click', handleCloseClick);
+        }
+        
+        // 초기 데이터 로드
+        loadPropertyData();
+        checkPaymentValidity();
+      }
+      
+      // 매물 데이터 로드
+      function loadPropertyData() {
+        try {
+          const formDataStr = sessionStorage.getItem('diagnosisFormData');
+          if (!formDataStr) return;
+          
+          const formData = JSON.parse(formDataStr);
+          
+          if (formData.address) {
+            const titleEl = document.getElementById('propertySummaryTitle');
+            const addressEl = document.getElementById('propertySummaryAddress');
+            
+            if (titleEl) {
+              const summaryTitle = formData.deposit && formData.monthlyRent 
+                ? formData.deposit + '/' + formData.monthlyRent
+                : formData.deposit 
+                ? formData.deposit
+                : '500/50';
+              titleEl.textContent = summaryTitle;
+            }
+            
+            if (addressEl) {
+              addressEl.textContent = formData.address + ' | ' + (formData.area || '84') + '㎡';
+            }
+          }
+        } catch (e) {
+          console.error('매물 데이터 로드 실패:', e);
+        }
+      }
+      
+      // 결제 버튼 활성화 여부 확인
+      function checkPaymentValidity() {
+        if (!termsService || !termsPayment || !paymentButton) return;
+        
+        const isValid = termsService.checked && termsPayment.checked;
+        
+        paymentButton.disabled = !isValid;
+        if (isValid) {
+          paymentButton.classList.add('enabled');
+        } else {
+          paymentButton.classList.remove('enabled');
+        }
+      }
+      
+      // 결제 버튼 클릭 핸들러
+      function handlePaymentClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (!termsService || !termsPayment) return;
+        
+        if (!termsService.checked || !termsPayment.checked) {
+          alert('필수 약관에 동의해주세요.');
+          return;
+        }
+        
+        if (paymentButton.disabled) {
+          return;
+        }
+        
+        openTossPaymentPopup();
+      }
+      
+      // 닫기 버튼 클릭 핸들러
+      function handleCloseClick(e) {
+        e.preventDefault();
+        if (confirm('결제를 취소하시겠습니까?')) {
+          history.back();
+        }
+      }
+      
+      // 토스 결제 팝업 열기
+      function openTossPaymentPopup() {
+        // 토스 브랜드 페이 API 호출
+        // 실제 구현 시 아래와 같이 사용합니다:
+        // const tossPayments = window.TossPayments('가맹점 키');
+        // tossPayments.requestPayment('카드', {
+        //   amount: 29900,
+        //   orderId: 'order-id',
+        //   orderName: '지킴진단 리포트',
+        //   successUrl: window.location.origin + '/payment-success',
+        //   failUrl: window.location.origin + '/payment-fail'
+        // });
+        
+        // 시스템 알림 팝업
+        alert('토스페이로 진행합니다.');
+        
+        // 확인 후 다음 페이지로 이동
+        window.location.href = 'waiting.html';
+      }
+      
+      // DOM 로드 완료 시 초기화
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>

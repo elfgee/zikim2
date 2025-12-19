@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Design assets (대용량 파일은 Git LFS 사용 권장)
+Design/assets/*.psd
+Design/assets/*.ai
+Design/assets/*.sketch
+Design/assets/*.fig
+
+# 임시 파일
+*.tmp
+*.temp
+*~
+
+# 로그 파일
+*.log
+
+# 환경 변수
+.env
+.env.local
+
+.DS_Store
+
+# Node / Next.js
+node_modules
+dist
+.next
+.vercel
+
+# Node / Next.js
+node_modules
+dist
+.next
+.vercel

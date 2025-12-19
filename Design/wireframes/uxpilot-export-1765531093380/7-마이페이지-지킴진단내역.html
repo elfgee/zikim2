@@ -1,0 +1,559 @@
+<style data-grapesjs-styles="true">
+  *
+  {
+    box-sizing: border-box;
+  }
+
+  body
+  {
+    margin: 0;
+  }
+</style>
+```html
+<div id="mobile-app-container" class="w-full max-w-[430px] mx-auto bg-white">
+  <!-- Header -->
+  <header id="header"
+    class="fixed top-0 left-0 right-0 max-w-[430px] mx-auto bg-white border-b border-neutral-200 z-50">
+    <div class="flex items-center justify-between px-4 py-3">
+      <h1 class="text-lg text-neutral-900">마이페이지</h1><button class="p-2"><i
+          class="fa-solid fa-bell text-neutral-600 text-xl"></i></button>
+    </div>
+  </header><!-- Main Content -->
+  <main id="main-content" class="pt-[60px] pb-[80px]">
+    <!-- User Profile Section -->
+    <section id="user-profile-section"
+      class="bg-white px-4 py-6 border-b border-neutral-100">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4"><img
+            src="https://api.dicebear.com/7.x/notionists/svg?scale=200&amp;seed=12345"
+            alt="Profile"
+            class="w-16 h-16 rounded-full border-2 border-neutral-200">
+          <div>
+            <h2 class="text-xl text-neutral-900">김지킴</h2>
+            <p class="text-sm text-neutral-500 mt-1">jikim@example.com</p>
+          </div>
+        </div><button class="p-2 hover:bg-neutral-50 rounded-lg"><i
+            class="fa-solid fa-gear text-neutral-600 text-xl"></i></button>
+      </div>
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="bg-neutral-50 rounded-lg p-3 text-center">
+          <div class="text-2xl text-neutral-900">12</div>
+          <div class="text-xs text-neutral-600 mt-1">진단 내역</div>
+        </div>
+        <div class="bg-neutral-50 rounded-lg p-3 text-center">
+          <div class="text-2xl text-neutral-900">3</div>
+          <div class="text-xs text-neutral-600 mt-1">관심 단지</div>
+        </div>
+        <div class="bg-neutral-50 rounded-lg p-3 text-center">
+          <div class="text-2xl text-neutral-900">8</div>
+          <div class="text-xs text-neutral-600 mt-1">저장 목록</div>
+        </div>
+      </div>
+    </section><!-- Quick Actions Section -->
+    <section id="quick-actions-section"
+      class="bg-white px-4 py-4 border-b border-neutral-100">
+      <div class="grid grid-cols-4 gap-4"><button
+          class="flex flex-col items-center gap-2">
+          <div
+            class="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-heart text-neutral-700 text-lg"></i></div>
+          <span class="text-xs text-neutral-700">찜한 매물</span>
+        </button><button class="flex flex-col items-center gap-2">
+          <div
+            class="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-clock text-neutral-700 text-lg"></i></div>
+          <span class="text-xs text-neutral-700">최근 본</span>
+        </button><button class="flex flex-col items-center gap-2">
+          <div
+            class="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-file-lines text-neutral-700 text-lg"></i>
+          </div><span class="text-xs text-neutral-700">계약 관리</span>
+        </button><button class="flex flex-col items-center gap-2">
+          <div
+            class="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-receipt text-neutral-700 text-lg"></i></div>
+          <span class="text-xs text-neutral-700">결제 내역</span>
+        </button></div>
+    </section><!-- 지킴진단 내역 Section -->
+    <section id="diagnosis-history-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base text-neutral-900">지킴진단 내역</h3><button
+          class="text-sm text-neutral-500 flex items-center gap-1">
+          전체보기
+          <i class="fa-solid fa-chevron-right text-xs"></i></button>
+      </div>
+      <div class="space-y-3">
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2"><span
+                  class="px-2 py-1 bg-black text-white text-xs rounded">완료</span><span
+                  class="text-xs text-neutral-500">2025.01.15</span></div>
+              <h4 class="text-neutral-900 mb-1">서울시 강남구 대치동</h4>
+              <p class="text-sm text-neutral-600">래미안대치팰리스 84㎡</p>
+            </div><button class="p-2"><i
+                class="fa-solid fa-chevron-right text-neutral-400"></i></button>
+          </div>
+          <div class="flex items-center gap-2 pt-3 border-t border-neutral-100">
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">예상 시세</div>
+              <div class="text-sm text-neutral-900">23억 5,000만원</div>
+            </div>
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">적정 가격</div>
+              <div class="text-sm text-neutral-900">22억 8,000만원</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2"><span
+                  class="px-2 py-1 bg-neutral-200 text-neutral-700 text-xs rounded">진행중</span><span
+                  class="text-xs text-neutral-500">2025.01.10</span></div>
+              <h4 class="text-neutral-900 mb-1">경기도 성남시 분당구</h4>
+              <p class="text-sm text-neutral-600">판교원마을8단지 59㎡</p>
+            </div><button class="p-2"><i
+                class="fa-solid fa-chevron-right text-neutral-400"></i></button>
+          </div>
+          <div class="flex items-center gap-2 pt-3 border-t border-neutral-100">
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">진행률</div>
+              <div class="text-sm text-neutral-900">65%</div>
+            </div>
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">예상 완료</div>
+              <div class="text-sm text-neutral-900">1월 20일</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2"><span
+                  class="px-2 py-1 bg-black text-white text-xs rounded">완료</span><span
+                  class="text-xs text-neutral-500">2025.01.05</span></div>
+              <h4 class="text-neutral-900 mb-1">서울시 송파구 잠실동</h4>
+              <p class="text-sm text-neutral-600">잠실엘스 114㎡</p>
+            </div><button class="p-2"><i
+                class="fa-solid fa-chevron-right text-neutral-400"></i></button>
+          </div>
+          <div class="flex items-center gap-2 pt-3 border-t border-neutral-100">
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">예상 시세</div>
+              <div class="text-sm text-neutral-900">28억 2,000만원</div>
+            </div>
+            <div class="flex-1 bg-neutral-50 rounded px-3 py-2">
+              <div class="text-xs text-neutral-500 mb-1">적정 가격</div>
+              <div class="text-sm text-neutral-900">27억 5,000만원</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- 입주민 인증 & 실거래가 Combined Section -->
+    <section id="resident-verification-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base text-neutral-900">입주민 인증</h3>
+      </div>
+      <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div
+            class="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+            <i class="fa-solid fa-building text-white text-xl"></i></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <h4 class="text-neutral-900">래미안대치팰리스</h4><span
+                class="px-2 py-0.5 bg-black text-white text-xs rounded">인증완료</span>
+            </div>
+            <p class="text-sm text-neutral-600">서울시 강남구 대치동</p>
+          </div>
+        </div><button
+          class="w-full bg-black text-white py-3 rounded-lg text-sm"><i
+            class="fa-solid fa-comments mr-2"></i>
+          커뮤니티 채팅 입장하기
+        </button>
+      </div><!-- 실거래가 (Same Complex) -->
+      <div class="mb-3">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-sm text-neutral-900">최근 실거래가</h4><button
+            class="text-xs text-neutral-500 flex items-center gap-1">
+            더보기
+            <i class="fa-solid fa-chevron-right text-xs"></i></button>
+        </div>
+        <div class="space-y-2">
+          <div class="bg-white border border-neutral-200 rounded-lg p-3">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex-1">
+                <p class="text-sm text-neutral-600 mb-1">84㎡ · 25층</p>
+                <div class="flex items-center gap-2"><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">매매</span><span
+                    class="text-xs text-neutral-500">2025.01.12</span></div>
+              </div>
+              <div class="text-right">
+                <div class="text-base text-neutral-900">23.5억</div>
+                <div class="flex items-center gap-1 mt-1"><i
+                    class="fa-solid fa-arrow-up text-neutral-600 text-xs"></i><span
+                    class="text-xs text-neutral-600">+5,000</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-lg p-3">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex-1">
+                <p class="text-sm text-neutral-600 mb-1">84㎡ · 18층</p>
+                <div class="flex items-center gap-2"><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">전세</span><span
+                    class="text-xs text-neutral-500">2025.01.10</span></div>
+              </div>
+              <div class="text-right">
+                <div class="text-base text-neutral-900">15.8억</div>
+                <div class="flex items-center gap-1 mt-1"><i
+                    class="fa-solid fa-arrow-down text-neutral-600 text-xs"></i><span
+                    class="text-xs text-neutral-600">-2,000</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-lg p-3">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex-1">
+                <p class="text-sm text-neutral-600 mb-1">114㎡ · 32층</p>
+                <div class="flex items-center gap-2"><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">매매</span><span
+                    class="text-xs text-neutral-500">2025.01.08</span></div>
+              </div>
+              <div class="text-right">
+                <div class="text-base text-neutral-900">28.2억</div>
+                <div class="flex items-center gap-1 mt-1"><i
+                    class="fa-solid fa-minus text-neutral-500 text-xs"></i><span
+                    class="text-xs text-neutral-500">보합</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- 청약 진단 결과 Section -->
+    <section id="subscription-diagnosis-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base text-neutral-900">청약 진단 결과</h3><button
+          class="text-sm text-neutral-500 flex items-center gap-1">
+          상세보기
+          <i class="fa-solid fa-chevron-right text-xs"></i></button>
+      </div>
+      <div
+        class="bg-gradient-to-br from-neutral-900 to-neutral-700 rounded-lg p-5 mb-3">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <p class="text-neutral-300 text-sm mb-1">나의 청약 점수</p>
+            <h4 class="text-white text-3xl">85점</h4>
+          </div>
+          <div
+            class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-chart-line text-white text-2xl"></i></div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 bg-white bg-opacity-20 rounded-full h-2">
+            <div class="bg-white rounded-full h-2 w-[85%]"></div>
+          </div><span class="text-white text-sm">상위 15%</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="bg-white border-2 border-black rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2"><i
+              class="fa-solid fa-building text-black text-lg"></i>
+            <h5 class="text-neutral-900">민간 청약</h5>
+          </div>
+          <div class="text-2xl text-black mb-1">가능</div>
+          <p class="text-xs text-neutral-600">12개 단지 지원 가능</p><button
+            class="w-full mt-3 bg-black text-white py-2 rounded-lg text-xs">
+            청약 일정 보기
+          </button>
+        </div>
+        <div class="bg-white border-2 border-neutral-300 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2"><i
+              class="fa-solid fa-landmark text-neutral-600 text-lg"></i>
+            <h5 class="text-neutral-900">공공 청약</h5>
+          </div>
+          <div class="text-2xl text-neutral-600 mb-1">검토중</div>
+          <p class="text-xs text-neutral-600">자격 확인 필요</p><button
+            class="w-full mt-3 bg-neutral-200 text-neutral-700 py-2 rounded-lg text-xs">
+            자격 확인하기
+          </button>
+        </div>
+      </div>
+      <div class="bg-neutral-50 rounded-lg p-4">
+        <h5 class="text-neutral-900 mb-3 text-sm">청약 조건 요약</h5>
+        <div class="space-y-2">
+          <div
+            class="flex items-center justify-between py-2 border-b border-neutral-200">
+            <span class="text-sm text-neutral-600">무주택 기간</span><span
+              class="text-sm text-neutral-900">3년 2개월</span></div>
+          <div
+            class="flex items-center justify-between py-2 border-b border-neutral-200">
+            <span class="text-sm text-neutral-600">청약통장 가입기간</span><span
+              class="text-sm text-neutral-900">5년 8개월</span></div>
+          <div
+            class="flex items-center justify-between py-2 border-b border-neutral-200">
+            <span class="text-sm text-neutral-600">부양가족 수</span><span
+              class="text-sm text-neutral-900">3명</span></div>
+          <div class="flex items-center justify-between py-2"><span
+              class="text-sm text-neutral-600">납입 인정금액</span><span
+              class="text-sm text-neutral-900">1,800만원</span></div>
+        </div>
+      </div>
+    </section><!-- 추천 분양 정보 Section -->
+    <section id="recommended-presale-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base text-neutral-900">맞춤 분양 정보</h3><button
+          class="text-sm text-neutral-500 flex items-center gap-1">
+          전체보기
+          <i class="fa-solid fa-chevron-right text-xs"></i></button>
+      </div>
+      <div class="space-y-3">
+        <div
+          class="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+          <div
+            class="bg-neutral-200 h-40 flex items-center justify-center text-neutral-500">
+            아파트 단지 이미지
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-2"><span
+                class="px-2 py-1 bg-black text-white text-xs rounded">접수중</span><span
+                class="text-xs text-neutral-500">D-5</span></div>
+            <h4 class="text-neutral-900 mb-1">힐스테이트 청라</h4>
+            <p class="text-sm text-neutral-600 mb-3">인천시 서구 청라동 · 84㎡</p>
+            <div
+              class="flex items-center justify-between pt-3 border-t border-neutral-100">
+              <div>
+                <p class="text-xs text-neutral-500 mb-1">분양가</p>
+                <p class="text-base text-neutral-900">5.2억원</p>
+              </div><button
+                class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                상세보기
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-white border border-neutral-200 rounded-lg overflow-hidden">
+          <div
+            class="bg-neutral-200 h-40 flex items-center justify-center text-neutral-500">
+            아파트 단지 이미지
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-2"><span
+                class="px-2 py-1 bg-neutral-300 text-neutral-700 text-xs rounded">예정</span><span
+                class="text-xs text-neutral-500">1월 25일</span></div>
+            <h4 class="text-neutral-900 mb-1">래미안 원베일리</h4>
+            <p class="text-sm text-neutral-600 mb-3">경기도 수원시 영통구 · 74㎡</p>
+            <div
+              class="flex items-center justify-between pt-3 border-t border-neutral-100">
+              <div>
+                <p class="text-xs text-neutral-500 mb-1">예상 분양가</p>
+                <p class="text-base text-neutral-900">6.8억원</p>
+              </div><button
+                class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                알림받기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- 저장한 관심 매물 Section -->
+    <section id="saved-properties-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base text-neutral-900">저장한 관심 매물</h3><button
+          class="text-sm text-neutral-500 flex items-center gap-1">
+          전체보기
+          <i class="fa-solid fa-chevron-right text-xs"></i></button>
+      </div>
+      <div class="space-y-3">
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex gap-3">
+            <div
+              class="w-20 h-20 bg-neutral-200 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-xs text-neutral-500">매물사진</span></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1">
+                  <h4 class="text-neutral-900 mb-1 truncate">래미안대치팰리스</h4>
+                  <p class="text-sm text-neutral-600">84㎡ · 25층</p>
+                </div><button class="p-1"><i
+                    class="fa-solid fa-heart text-neutral-500"></i></button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">매매</span>
+                </div>
+                <div class="text-right">
+                  <p class="text-base text-neutral-900">23.5억</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex gap-3">
+            <div
+              class="w-20 h-20 bg-neutral-200 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-xs text-neutral-500">매물사진</span></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1">
+                  <h4 class="text-neutral-900 mb-1 truncate">잠실엘스</h4>
+                  <p class="text-sm text-neutral-600">114㎡ · 32층</p>
+                </div><button class="p-1"><i
+                    class="fa-solid fa-heart text-neutral-500"></i></button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">전세</span>
+                </div>
+                <div class="text-right">
+                  <p class="text-base text-neutral-900">15억</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-lg p-4">
+          <div class="flex gap-3">
+            <div
+              class="w-20 h-20 bg-neutral-200 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-xs text-neutral-500">매물사진</span></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1">
+                  <h4 class="text-neutral-900 mb-1 truncate">헬리오시티</h4>
+                  <p class="text-sm text-neutral-600">59㎡ · 18층</p>
+                </div><button class="p-1"><i
+                    class="fa-solid fa-heart text-neutral-500"></i></button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div><span
+                    class="text-xs px-2 py-1 bg-neutral-100 text-neutral-700 rounded">월세</span>
+                </div>
+                <div class="text-right">
+                  <p class="text-base text-neutral-900">1억/200</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- 계정 및 설정 Section -->
+    <section id="account-settings-section"
+      class="bg-white px-4 py-5 border-b-8 border-neutral-100">
+      <h3 class="text-base text-neutral-900 mb-4">계정 및 설정</h3>
+      <div class="space-y-1"><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-user text-neutral-600"></i><span
+              class="text-sm text-neutral-900">개인정보 수정</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-bell text-neutral-600"></i><span
+              class="text-sm text-neutral-900">알림 설정</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-shield-halved text-neutral-600"></i><span
+              class="text-sm text-neutral-900">개인정보 처리방침</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-file-contract text-neutral-600"></i><span
+              class="text-sm text-neutral-900">이용약관</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-headset text-neutral-600"></i><span
+              class="text-sm text-neutral-900">고객센터</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button><button
+          class="w-full flex items-center justify-between py-3 px-2 hover:bg-neutral-50 rounded-lg">
+          <div class="flex items-center gap-3"><i
+              class="fa-solid fa-circle-info text-neutral-600"></i><span
+              class="text-sm text-neutral-900">앱 정보</span></div><i
+            class="fa-solid fa-chevron-right text-neutral-400 text-sm"></i>
+        </button></div>
+    </section><!-- 앱 버전 및 로그아웃 Section -->
+    <section id="app-version-section" class="bg-white px-4 py-5">
+      <div class="text-center mb-4">
+        <p class="text-xs text-neutral-500 mb-1">앱 버전</p>
+        <p class="text-sm text-neutral-900">v2.5.1</p>
+      </div>
+      <div class="space-y-2"><button
+          class="w-full py-3 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50">
+          로그아웃
+        </button><button
+          class="w-full py-3 border border-neutral-300 rounded-lg text-sm text-neutral-500 hover:bg-neutral-50">
+          회원탈퇴
+        </button></div>
+      <div class="mt-6 pt-6 border-t border-neutral-100 text-center">
+        <p class="text-xs text-neutral-400 mb-2">지킴 부동산</p>
+        <p class="text-xs text-neutral-400">© 2025 Jikim. All rights reserved.
+        </p>
+      </div>
+    </section><!-- 추가 여백 -->
+    <div class="h-8"></div>
+  </main><!-- Bottom Navigation -->
+  <nav id="footer"
+    class="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white border-t border-neutral-200 z-50">
+    <div class="grid grid-cols-3 h-16"><button
+        class="flex flex-col items-center justify-center gap-1 text-neutral-500 hover:text-neutral-900"><i
+          class="fa-solid fa-house text-xl"></i><span
+          class="text-xs">부동산</span></button><button
+        class="flex flex-col items-center justify-center gap-1 text-neutral-500 hover:text-neutral-900"><i
+          class="fa-solid fa-building text-xl"></i><span
+          class="text-xs">분양</span></button><button
+        class="flex flex-col items-center justify-center gap-1 text-black"><i
+          class="fa-solid fa-user text-xl"></i><span
+          class="text-xs">마이</span></button></div>
+  </nav>
+</div>
+```
+
+
+
+<script>
+  window.FontAwesomeConfig = {
+    autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+  };
+</script>
+<script>
+  tailwind.config = {
+    theme:
+    {
+      extend:
+      {
+        colors:
+        {
+          primary:
+          {
+            "50": "#fafafa",
+            "100": "#f5f5f5",
+            "200": "#e5e5e5",
+            "300": "#d4d4d4",
+            "400": "#a3a3a3",
+            "500": "#737373",
+            "600": "#525252",
+            "700": "#404040",
+            "800": "#262626",
+            "900": "#171717",
+            "950": "#0a0a0a"
+          }
+        }
+      }
+    }
+  }
+</script>

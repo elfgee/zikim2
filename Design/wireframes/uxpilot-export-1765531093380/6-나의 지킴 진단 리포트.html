@@ -1,0 +1,223 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        ```html
+<div id="main" class="bg-white min-h-screen">
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-neutral-200 z-50">
+    <div class="flex items-center justify-between px-4 h-14">
+      <button class="w-10 h-10 flex items-center justify-center">
+        <i class="fa-solid fa-arrow-left text-neutral-900 text-lg"></i>
+      </button>
+      <h1 class="text-base text-neutral-900">나의 지킴 진단 리포트</h1>
+      <div class="w-10"></div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="mt-14 pb-20">
+    <!-- Empty State (Show when no reports) -->
+    <section id="empty-state" class="hidden px-4 pt-32">
+      <div class="flex flex-col items-center text-center">
+        <div class="w-20 h-20 bg-neutral-100 rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-shield-halved text-neutral-400 text-3xl"></i>
+        </div>
+        <h3 class="text-base text-neutral-900 mb-2">아직 진단한 매물이 없어요</h3>
+        <p class="text-sm text-neutral-600 mb-6 leading-relaxed">
+          관심있는 매물의 보증금 안전성을<br/>
+          전문가 진단으로 확인해보세요
+        </p>
+        <button class="bg-neutral-900 text-white text-sm px-6 py-3 rounded-lg">
+          매물 찾아보기
+        </button>
+      </div>
+    </section>
+
+    <!-- Report List -->
+    <section id="report-list" class="px-4 pt-4">
+      <!-- Filter & Sort -->
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm text-neutral-600">총 <span class="text-neutral-900">3</span>건</span>
+        <button class="flex items-center gap-1 text-sm text-neutral-600">
+          <span>최신순</span>
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Report Card 1 - Safe -->
+      <div class="bg-white border border-neutral-200 rounded-xl mb-3 overflow-hidden">
+        <div class="p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">월세</span>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">아파트</span>
+              </div>
+              <h3 class="text-sm text-neutral-900 mb-1">서울시 강남구 역삼동</h3>
+              <p class="text-xs text-neutral-600">500/50 · 84㎡</p>
+            </div>
+            <div class="flex flex-col items-end gap-1">
+              <div class="flex items-center gap-1 px-2 py-1 bg-neutral-100 rounded">
+                <div class="w-2 h-2 bg-neutral-800 rounded-full"></div>
+                <span class="text-xs text-neutral-900">안전</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-3 border-t border-neutral-100">
+            <span class="text-xs text-neutral-500">2025.12.08 진단완료</span>
+            <button class="text-xs text-neutral-900 flex items-center gap-1">
+              <span>리포트 보기</span>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Card 2 - Warning -->
+      <div class="bg-white border border-neutral-200 rounded-xl mb-3 overflow-hidden">
+        <div class="p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">전세</span>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">빌라</span>
+              </div>
+              <h3 class="text-sm text-neutral-900 mb-1">서울시 마포구 합정동</h3>
+              <p class="text-xs text-neutral-600">2억 5천 · 59㎡</p>
+            </div>
+            <div class="flex flex-col items-end gap-1">
+              <div class="flex items-center gap-1 px-2 py-1 bg-neutral-100 rounded">
+                <div class="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                <span class="text-xs text-neutral-900">주의</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-neutral-50 rounded-lg p-3 mb-3">
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-exclamation text-neutral-600 text-sm mt-0.5"></i>
+              <p class="text-xs text-neutral-700 leading-relaxed">전세가율이 높아 보증금 회수 위험이 있습니다</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-3 border-t border-neutral-100">
+            <span class="text-xs text-neutral-500">2025.12.05 진단완료</span>
+            <button class="text-xs text-neutral-900 flex items-center gap-1">
+              <span>리포트 보기</span>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Card 3 - Processing -->
+      <div class="bg-white border border-neutral-200 rounded-xl mb-3 overflow-hidden">
+        <div class="p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">전세</span>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">아파트</span>
+              </div>
+              <h3 class="text-sm text-neutral-900 mb-1">서울시 송파구 잠실동</h3>
+              <p class="text-xs text-neutral-600">5억 · 102㎡</p>
+            </div>
+            <div class="flex flex-col items-end gap-1">
+              <div class="flex items-center gap-1 px-2 py-1 bg-neutral-800 text-white rounded">
+                <i class="fa-solid fa-spinner text-xs"></i>
+                <span class="text-xs">진단중</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-neutral-50 rounded-lg p-3 mb-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="flex-1 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                <div class="h-full bg-neutral-800 rounded-full" style="width: 60%"></div>
+              </div>
+              <span class="text-xs text-neutral-600">60%</span>
+            </div>
+            <p class="text-xs text-neutral-600">예상 완료 시간: 약 8분 남음</p>
+          </div>
+          
+          <div class="flex items-center justify-between pt-3 border-t border-neutral-100">
+            <span class="text-xs text-neutral-500">2025.12.12 진단요청</span>
+            <button class="text-xs text-neutral-500 flex items-center gap-1">
+              <span>진단중</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="bg-neutral-50 rounded-lg p-4 mt-6">
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-circle-info text-neutral-600 text-sm mt-0.5"></i>
+          <div>
+            <p class="text-xs text-neutral-700 leading-relaxed mb-2">
+              진단 리포트는 결제 후 최대 20분 이내에 생성됩니다
+            </p>
+            <p class="text-xs text-neutral-600 leading-relaxed">
+              완료되면 푸시 알림으로 안내해드립니다
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200">
+    <div class="flex items-center justify-around h-16">
+      <button class="flex flex-col items-center gap-1 flex-1">
+        <i class="fa-solid fa-house text-neutral-400 text-lg"></i>
+        <span class="text-xs text-neutral-400">홈</span>
+      </button>
+      <button class="flex flex-col items-center gap-1 flex-1">
+        <i class="fa-solid fa-magnifying-glass text-neutral-400 text-lg"></i>
+        <span class="text-xs text-neutral-400">검색</span>
+      </button>
+      <button class="flex flex-col items-center gap-1 flex-1">
+        <i class="fa-solid fa-map text-neutral-400 text-lg"></i>
+        <span class="text-xs text-neutral-400">지도</span>
+      </button>
+      <button class="flex flex-col items-center gap-1 flex-1">
+        <i class="fa-solid fa-heart text-neutral-400 text-lg"></i>
+        <span class="text-xs text-neutral-400">관심</span>
+      </button>
+      <button class="flex flex-col items-center gap-1 flex-1">
+        <i class="fa-solid fa-user text-neutral-900 text-lg"></i>
+        <span class="text-xs text-neutral-900">MY</span>
+      </button>
+    </div>
+  </nav>
+</div>
+```
+                        </body>
+                        </html>
+                        

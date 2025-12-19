@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header-title">마이페이지</h1>
+      <button class="header-button" aria-label="알림">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+    </header>
+
+    <!-- User Profile Section -->
+    <section class="profile-section">
+      <div class="profile-header">
+        <div class="profile-info">
+          <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=12345" alt="Profile" class="profile-image">
+          <div>
+            <h2 class="profile-name">김지킴</h2>
+            <p class="profile-email">jikim@example.com</p>
+          </div>
+        </div>
+        <button class="profile-settings-button">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </div>
+      <div class="profile-stats">
+        <div class="stat-item">
+          <div class="stat-value">12</div>
+          <div class="stat-label">진단 내역</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">3</div>
+          <div class="stat-label">관심 단지</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">8</div>
+          <div class="stat-label">저장 목록</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="quick-actions-section">
+      <div class="quick-actions-grid">
+        <button class="quick-action-item">
+          <div class="quick-action-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <span>찜한 매물</span>
+        </button>
+        <button class="quick-action-item">
+          <div class="quick-action-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <span>최근 본</span>
+        </button>
+        <button class="quick-action-item">
+          <div class="quick-action-icon">
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <span>계약 관리</span>
+        </button>
+        <button class="quick-action-item">
+          <div class="quick-action-icon">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <span>결제 내역</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 지킴진단 내역 Section -->
+    <section class="diagnosis-history-section">
+      <div class="section-header">
+        <h3 class="section-title">지킴진단 내역</h3>
+        <button class="view-all-button" onclick="navigateToReportList()">
+          전체보기
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="diagnosis-history-list">
+        <!-- Diagnosis History Item -->
+        <div class="diagnosis-history-item" onclick="navigateToReportDetail('risky')">
+          <div class="diagnosis-item-header">
+            <div class="diagnosis-item-info">
+              <div class="diagnosis-item-badges">
+                <span class="diagnosis-badge diagnosis-badge-complete">완료</span>
+                <span class="diagnosis-date">2025.01.15</span>
+              </div>
+              <h4 class="diagnosis-item-address">서울시 양천구 중앙로333 (신월동)</h4>
+              <p class="diagnosis-item-details">제9층 902호 · 84㎡</p>
+            </div>
+            <button class="diagnosis-item-arrow">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="diagnosis-item-footer">
+            <div class="diagnosis-item-stat">
+              <div class="stat-label">예상 시세</div>
+              <div class="stat-value">5억 8,000만원</div>
+            </div>
+            <div class="diagnosis-item-status">
+              <div class="status-dot status-dot-warning"></div>
+              <span class="status-text">확인 필요</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <a href="gateway.html" class="nav-item">
+        <i class="fa-solid fa-house"></i>
+        <span>홈</span>
+      </a>
+      <a href="mypage.html" class="nav-item active">
+        <i class="fa-solid fa-user"></i>
+        <span>마이</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>검색</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fa-solid fa-heart"></i>
+        <span>찜</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    function navigateToReportList() {
+      window.location.href = 'report-list.html';
+    }
+
+    function navigateToReportDetail(type) {
+      sessionStorage.setItem('reportType', type);
+      window.location.href = 'report-detail.html';
+    }
+  </script>
+</body>
+</html>
+
+

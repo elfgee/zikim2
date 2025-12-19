@@ -1,0 +1,303 @@
+import type { DisplayField, RuleCard } from "./schema";
+
+/**
+ * MVP 목적: 화면에 "케이스별 노출 문구"가 빠르게 보이는지 확인
+ * - 문구/항목명은 `docs/reference/진단데이터.xlsx`의 표/문구를 그대로 옮겨둔 초안
+ * - key는 현재 사용 중인 값을 그대로 유지(표준화는 나중)
+ */
+
+export const DISPLAY_FIELDS_LOCAL: DisplayField[] = [
+  {
+    kind: "display",
+    key: "building.subtype",
+    section: "property",
+    title: "세부유형",
+    description:
+      "**(##)으로 기재되어 있다면, ** 입력 원칙\n(ex) 숙박시설(생활숙박시설) ->  숙박시설\n\n세부유형 확인 불가시 [세부유형 확인 불가] 기재: (ex) 집합건물[세부유형 확인불가]",
+  },
+  { kind: "display", key: "owner.name", section: "owner", title: "소유자" },
+  { kind: "display", key: "owner.ownership.type", section: "owner", title: "소유형태" },
+  {
+    kind: "display",
+    key: "registry.debt.amount",
+    section: "price",
+    title: "채무금액",
+    description:
+      "근저당권 기존 채무금액 (압류/가압류 포함)\n\n공동담보의 경우, 공동담보 목록으로 나누어 약 **원으로 기재 \n-> 공동담보 목록 확인 불가시 해당 내용 전체 삭제",
+    format: "currency",
+  },
+  {
+    kind: "display",
+    key: "property.address",
+    section: "property",
+    title: "소재지",
+    description:
+      "(쪼개기) - !기타 진단의견에도 쪼개기 관련 기재 있음!\n· 이 집은 등기부등본상 한 세대(호실)를 여러 세대(호실)로 나눈 집이에요. 예를 들면 등기부상 201호(1개 호실)을 쪼개서 실제로는 201호 및 202호(2개 호실)로 나눈 경우로, 문패상 202호를 임차하더라도 등기부 기준으로는 201호의 일부를 임차한 셈이 돼요. \n· 이 경우 문패가 아닌 등기부 기준으로 계약 및 전입신고를 해야 주택임대차보호법에 따른 보호를 받을 수 있어요.",
+    format: "multiline",
+  },
+  {
+    kind: "display",
+    key: "property.housing.type",
+    section: "property",
+    title: "주택유형",
+    description:
+      "· 이 집은 집합건물에 해당해요. \n· 집합건물은 건물 내 각 세대(호실)를 여러 사람이 각자 독립적으로 소유하는 건물을 말해요(아파트 같은 동에서도 각 세대의 집주인이 다른 것이 좋은 예시예요).",
+  },
+  { kind: "display", key: "contract.term", section: "price", title: "계약기간" },
+  {
+    kind: "display",
+    key: "price.estimated.amount",
+    section: "price",
+    title: "시세 추정액",
+    description: "십만원 단위 절사 후, * 0.9",
+    format: "currency",
+  },
+  {
+    kind: "display",
+    key: "registry.debt.existing.total",
+    section: "price",
+    title: "기존 채무금액",
+    description: "근저당권 기존 채무금액 (압류/가압류 포함)",
+    format: "currency",
+  },
+  {
+    kind: "display",
+    key: "contract.deposit.expected",
+    section: "price",
+    title: "예상 보증금",
+    format: "currency",
+  },
+  {
+    kind: "display",
+    key: "price.margin.amount",
+    section: "price",
+    title: "여유 금액",
+    format: "currency",
+  },
+  {
+    kind: "display",
+    key: "tenant.super.priority",
+    section: "price",
+    title: "최우선변제권자",
+    description:
+      '경매개시결정, 임차권등기명령, 신탁 등기 되어 있는 경우 "해당하지 않아요"로 기재 / 금액에는 "-" 기재',
+    format: "multiline",
+  },
+  {
+    kind: "display",
+    key: "registry.gapgu.other",
+    section: "property",
+    title: "갑구 (그외사항)",
+    description: "(TBD)",
+  },
+  {
+    kind: "display",
+    key: "registry.eulgu.other",
+    section: "property",
+    title: "을구 (그외사항)",
+    description: "개별 기재 필요 (TBD)",
+  },
+  {
+    kind: "display",
+    key: "registry.restriction.exists",
+    section: "property",
+    title: "권리제한사항",
+  },
+];
+
+export const RULE_CARDS_LOCAL: RuleCard[] = [
+  {
+    kind: "rule",
+    key: "building.violation",
+    section: "property",
+    severity: "danger",
+    title: "위반건축물",
+    description:
+      "· 이 집은 위반건축물에 해당해요. 위반건축물인 집에도 실거주할 수 있고, 전입신고도 할 수 있어요.\n· 다만, 위반건축물인 경우 임차인의 전세자금대출 또는 보증보험 가입이 불가능하거나 곤란할 수 있으니 미리 확인이 필요해요.",
+    when: (ctx) => ctx.flags["building.violation"] === true,
+    passText: "미해당",
+    failText: "해당",
+    order: 10,
+  },
+  {
+    kind: "rule",
+    key: "owner.is.rental.business",
+    section: "owner",
+    severity: "info",
+    title: "소유자 (임대사업자)",
+    description:
+      "임대인이 주택임대사업자에 해당하는 경우, 관련 의무사항(5% 범위 내 임대료 증액 제한, 임대차 계약 신고, 표준임대차계약서 양식 사용, 임대보증금 보증 등)이 있어요.",
+    when: (ctx) => ctx.flags["owner.is.rental.business"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 20,
+  },
+  {
+    kind: "rule",
+    key: "owner.matches.landlord",
+    section: "owner",
+    severity: "warn",
+    title: "소유자 - 임대인 동일여부",
+    description:
+      "이 집은 소유자와 임대인이 같을 예정이에요. 다만, 실제 계약시에 다시 한번 확인하세요.",
+    when: (ctx) => ctx.flags["owner.matches.landlord"] === true,
+    passText: "불일치",
+    failText: "일치",
+    order: 30,
+  },
+  {
+    kind: "rule",
+    key: "registry.land.right.exists",
+    section: "property",
+    severity: "info",
+    title: "표제부 (대지권)",
+    description: "(진단의견 기재 없음)",
+    when: (ctx) => ctx.flags["registry.land.right.exists"] === true,
+    passText: "없음",
+    failText: "있음",
+    order: 40,
+  },
+  {
+    kind: "rule",
+    key: "registry.land.separate.registration.exists",
+    section: "property",
+    severity: "warn",
+    title: "표제부 (토지별도등기)",
+    description:
+      "(토지별도등기-근저당권)\n· 이 집에는 토지별도등기(근저당권)가 있어요. 건물 신축 비용을 대출하면서 대출 담보 목적으로 토지에 근저당권을 설정한 후, 아직 말소되지 않았을 가능성이 높아요.\n\n(토지별도등기-구분지상권)\n·  이 집에는 토지별도등기가 있어요(지하시설물 소유를 위한 구분지상권).",
+    when: (ctx) => ctx.flags["registry.land.separate.registration.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 50,
+  },
+  {
+    kind: "rule",
+    key: "registry.provisional.registration.exists",
+    section: "property",
+    severity: "warn",
+    title: "갑구 (가등기)",
+    description:
+      "· 이 집에는 소유권에 대한 가등기가 있어요. 가등기란 향후 부동산 소유권이 이전되는 경우, 소유권 이전에 있어 우선순위를 확보하기 위하여 미리 해두는 등기를 말해요\n· 가등기가 있는 집에 거주하는 것도 가능하지만(전입신고도 가능해요), 이 경우 임차인은 가등기에 기한 본등기를 한 권리자에게 임대차 관련 권리를 주장(대항)할 수 없어요.",
+    when: (ctx) => ctx.flags["registry.provisional.registration.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 60,
+  },
+  {
+    kind: "rule",
+    key: "registry.seizure.or.provisional.seizure.exists",
+    section: "property",
+    severity: "danger",
+    title: "갑구 (압류/가압류)",
+    description:
+      "(압류)\n· 이 집에는 소유권에 대한 압류가 있어요.\n(가압류)\n· 이 집에는 소유권에 대한 가압류가 있어요.",
+    when: (ctx) => ctx.flags["registry.seizure.or.provisional.seizure.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 70,
+  },
+  {
+    kind: "rule",
+    key: "registry.disposition.ban.injunction.exists",
+    section: "property",
+    severity: "danger",
+    title: "갑구 (처분금지가처분)",
+    description:
+      "· 이 집에는 부동산처분금지가처분이 있어요. 처분금지가처분이 있는 집을 임차하는 경우 가처분에 대한 권리를 가진 사람(채권자)에게 임대차 관련 권리를 주장(대항)할 수 없어요.",
+    when: (ctx) => ctx.flags["registry.disposition.ban.injunction.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 80,
+  },
+  {
+    kind: "rule",
+    key: "registry.trust.exists",
+    section: "property",
+    severity: "danger",
+    title: "갑구 (신탁)",
+    description: "부동산 소유자 정보 중 '신탁'을 확인하세요.",
+    when: (ctx) => ctx.flags["registry.trust.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 90,
+  },
+  {
+    kind: "rule",
+    key: "registry.auction.started",
+    section: "property",
+    severity: "danger",
+    title: "갑구 (경매개시결정)",
+    description:
+      "· 이 집에 대한 경매개시결정이 있어요.\n· 경매개시결정이 있는 집에 실제 거주하는 것은 가능하지만(전입신고도 가능해요), 법에서 정한 최우선변제권자가 될 수 없음을 주의해야 해요.",
+    when: (ctx) => ctx.flags["registry.auction.started"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 100,
+  },
+  {
+    kind: "rule",
+    key: "registry.mortgage.exists",
+    section: "property",
+    severity: "danger",
+    title: "을구 (근저당권)",
+    description:
+      "· 이 집에는 근저당권이 설정되어 있어요.\n· 근저당권이 말소되지 않는 한, 임차인보다 경매절차에서 먼저 돈을 받아갈 수 있는 사람(보통 은행)이 있다는 것은 반드시 기억해야해요.",
+    when: (ctx) => ctx.flags["registry.mortgage.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 110,
+  },
+  {
+    kind: "rule",
+    key: "registry.joint.collateral.exists",
+    section: "property",
+    severity: "warn",
+    title: "을구 (공동담보)",
+    description:
+      "· 이 집은 다른 토지 또는 건물과 함께 공동담보가 잡혀있어요.\n· 이 경우 보증금 반환 순위/금액에 영향을 줄 수 있어요.",
+    when: (ctx) => ctx.flags["registry.joint.collateral.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 120,
+  },
+  {
+    kind: "rule",
+    key: "registry.tenant.registration.order.exists",
+    section: "property",
+    severity: "warn",
+    title: "을구 (임차권등기명령)",
+    description:
+      "· 이 집에 대한 임차권등기명령이 있어요.\n· 임차권등기명령이 있는 집을 임차하는 경우, 법에서 정한 최우선변제권자가 될 수 없음을 주의해야 해요.",
+    when: (ctx) => ctx.flags["registry.tenant.registration.order.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 130,
+  },
+  {
+    kind: "rule",
+    key: "registry.jeonse.right.exists",
+    section: "property",
+    severity: "warn",
+    title: "을구 (전세권)",
+    description:
+      "· 이 집에는 전세권이 설정되어 있어요.\n· 전세권이 말소되지 않는 한, 임차인보다 먼저 돈을 받아갈 수 있는 사람(전 임차인)이 있을 수 있어요.",
+    when: (ctx) => ctx.flags["registry.jeonse.right.exists"] === true,
+    passText: "미해당",
+    failText: "해당있음",
+    order: 140,
+  },
+  {
+    kind: "rule",
+    key: "history.tenant.registration.order",
+    section: "owner",
+    severity: "warn",
+    title: "과거 이력",
+    description: "현재 임대인이 소유하고 있던 기간에 임차권등기명령 이력이 있는지 확인",
+    when: (ctx) => ctx.flags["history.tenant.registration.order"] === true,
+    passText: "없어요",
+    failText: "있어요",
+    order: 150,
+  },
+];
+
+

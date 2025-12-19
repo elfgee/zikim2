@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>리포트 생성 중</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <button class="header-button" aria-label="뒤로가기" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="header-title">지킴진단</h1>
+      <button class="header-button" aria-label="메뉴">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+    </header>
+
+    <!-- Progress Section -->
+    <section class="waiting-section">
+      <div class="waiting-content">
+        <div class="waiting-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h2 class="waiting-title">리포트 생성 중입니다</h2>
+        <p class="waiting-description">매물의 안전성을 종합 분석하고 있습니다</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-header">
+          <span class="progress-label">진행률</span>
+          <span class="progress-percentage" id="progressPercentage">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Current Status -->
+      <div class="status-box">
+        <div class="status-header">
+          <div class="status-icon status-icon-active">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div>
+            <h3 class="status-title">현재 진행 단계</h3>
+            <p class="status-subtitle" id="currentStep">매물 기본 정보 수집</p>
+          </div>
+        </div>
+        
+        <!-- Status Steps -->
+        <div class="status-steps">
+          <div class="status-step status-step-completed">
+            <div class="step-icon">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <span class="step-text">매물 기본 정보 수집</span>
+          </div>
+          <div class="status-step status-step-completed">
+            <div class="step-icon">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <span class="step-text">등기부등본 조회</span>
+          </div>
+          <div class="status-step status-step-active" id="activeStep">
+            <div class="step-icon step-icon-pulse">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <span class="step-text">권리관계 분석</span>
+          </div>
+          <div class="status-step status-step-pending">
+            <div class="step-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <span class="step-text">소유자 안정성 확인</span>
+          </div>
+          <div class="status-step status-step-pending">
+            <div class="step-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <span class="step-text">시세 진단</span>
+          </div>
+          <div class="status-step status-step-pending">
+            <div class="step-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <span class="step-text">리포트 생성</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estimated Time -->
+      <div class="time-info">
+        <p class="time-text">예상 소요 시간: 약 <strong>15분</strong></p>
+        <p class="time-description">리포트 생성이 완료되면 푸시 알림으로 알려드립니다</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Simulate progress
+    let progress = 0;
+    const steps = [
+      { name: '매물 기본 정보 수집', progress: 15 },
+      { name: '등기부등본 조회', progress: 30 },
+      { name: '권리관계 분석', progress: 50 },
+      { name: '소유자 안정성 확인', progress: 70 },
+      { name: '시세 진단', progress: 85 },
+      { name: '리포트 생성', progress: 100 }
+    ];
+    let currentStepIndex = 0;
+
+    function updateProgress() {
+      if (progress >= 100) {
+        // Navigate to report detail after completion
+        setTimeout(() => {
+          window.location.href = 'report-detail.html';
+        }, 1000);
+        return;
+      }
+
+      progress += Math.random() * 3;
+      if (progress > 100) progress = 100;
+
+      document.getElementById('progressFill').style.width = progress + '%';
+      document.getElementById('progressPercentage').textContent = Math.floor(progress) + '%';
+
+      // Update current step
+      const nextStep = steps.find(step => step.progress > progress);
+      if (nextStep && steps.indexOf(nextStep) !== currentStepIndex) {
+        currentStepIndex = steps.indexOf(nextStep);
+        updateStepDisplay();
+      }
+
+      setTimeout(updateProgress, 500);
+    }
+
+    function updateStepDisplay() {
+      const statusSteps = document.querySelectorAll('.status-step');
+      const currentStep = document.getElementById('currentStep');
+      
+      statusSteps.forEach((step, index) => {
+        step.classList.remove('status-step-active', 'status-step-completed', 'status-step-pending');
+        
+        if (index < currentStepIndex) {
+          step.classList.add('status-step-completed');
+        } else if (index === currentStepIndex) {
+          step.classList.add('status-step-active');
+          currentStep.textContent = steps[index].name;
+        } else {
+          step.classList.add('status-step-pending');
+        }
+      });
+    }
+
+    // Start progress simulation
+    setTimeout(() => {
+      updateProgress();
+    }, 1000);
+  </script>
+</body>
+</html>
+
+

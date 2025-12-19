@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지킴진단 리포트</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <button class="header-button" aria-label="뒤로가기" onclick="history.back()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <h1 class="header-title">지킴진단</h1>
+      <button class="header-button" aria-label="공유하기">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 8C19.6569 8 21 9.34315 21 11C21 12.6569 19.6569 14 18 14C16.3431 14 15 12.6569 15 11C15 9.34315 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 15C7.65685 15 9 16.3431 9 18C9 19.6569 7.65685 21 6 21C4.34315 21 3 19.6569 3 18C3 16.3431 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 8V5C18 4.46957 17.7893 3.96086 17.4142 3.58579C17.0391 3.21071 16.5304 3 16 3H8C7.46957 3 6.96086 3.21071 6.58579 3.58579C6.21071 3.96086 6 4.46957 6 5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 15V19C6 19.5304 6.21071 20.0391 6.58579 20.4142C6.96086 20.7893 7.46957 21 8 21H16C16.5304 21 17.0391 20.7893 17.4142 20.4142C17.7893 20.0391 18 19.5304 18 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Report Content -->
+    <main class="report-content">
+      <!-- Property Header Section -->
+      <section class="property-header">
+        <div class="property-info">
+          <h2 class="property-address">서울시 양천구 중앙로333 (신월동) 제9층 902호</h2>
+          <p class="property-details">5억 5,000만원・전세(24개월)</p>
+        </div>
+        <div class="property-image">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Overall Safety Grade Section (강조 섹션) -->
+      <section class="safety-grade-section" id="safetyGradeSection">
+        <!-- Risky Property Grade -->
+        <div class="safety-grade-card safety-grade-warning" id="riskyGradeCard">
+          <div class="safety-grade-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="safety-grade-content">
+            <p class="safety-grade-label">종합 안전 등급</p>
+            <h2 class="safety-grade-title">확인 필요</h2>
+            <p class="safety-grade-description">몇 가지 위험 요소가 발견되었어요.<br>계약 전 아래 정보들을 꼭 검토해주세요.</p>
+          </div>
+          <div class="safety-grade-visual">
+            <div class="safety-grade-meter">
+              <div class="meter-bar meter-bar-warning" style="width: 35%;"></div>
+            </div>
+            <p class="meter-label">안전도 35%</p>
+          </div>
+        </div>
+        <!-- Safe Property Grade -->
+        <div class="safety-grade-card safety-grade-safe" id="safeGradeCard" style="display: none;">
+          <div class="safety-grade-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="safety-grade-content">
+            <p class="safety-grade-label">종합 안전 등급</p>
+            <h2 class="safety-grade-title">양호</h2>
+            <p class="safety-grade-description">모든 주요 점검 항목이 양호합니다.<br>안심하고 계약을 진행하셔도 됩니다.</p>
+          </div>
+          <div class="safety-grade-visual">
+            <div class="safety-grade-meter">
+              <div class="meter-bar meter-bar-safe" style="width: 95%;"></div>
+            </div>
+            <p class="meter-label">안전도 95%</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Summary Section -->
+      <section class="ai-summary-section">
+        <div class="ai-summary-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>AI 종합 진단 의견</span>
+        </div>
+        <p class="ai-summary-text" id="aiSummaryText">
+          이 집은 <strong>경매 절차가 진행 중</strong>이고,<br>
+          가압류·임차권 설정 등 여러 권리관계로<br>
+          인해 <strong>보증금 회수가 어려워질 가능성</strong>이 있어<br>
+          <strong>계약 전 아래 정보들을 꼭 검토</strong>해보세요.
+        </p>
+      </section>
+
+      <!-- Diagnosis Items Summary -->
+      <section class="diagnosis-summary" id="diagnosisSummary">
+        <!-- Risky Property Summary -->
+        <div class="summary-card" id="riskySummary">
+          <p class="summary-title">
+            <strong>확인이 필요한 항목</strong><span>들이 있어요!</span>
+          </p>
+          <ul class="summary-list">
+            <li class="summary-item">
+              <span>🏠 매물 진단</span>
+              <span class="summary-count">5개</span>
+            </li>
+            <li class="summary-item">
+              <span>👨🏻 집주인 진단</span>
+              <span class="summary-count">2개</span>
+            </li>
+            <li class="summary-item">
+              <span>📊 시세 진단</span>
+              <span class="summary-count">1개</span>
+            </li>
+            <li class="summary-item">
+              <span>💰 대출/보험 진단</span>
+              <span class="summary-count">3개</span>
+            </li>
+            <li class="summary-item">
+              <span>🚔 범죄/치안</span>
+              <span class="summary-count">1개</span>
+            </li>
+            <li class="summary-item">
+              <span>🛒 생활/편의</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Safe Property Summary -->
+        <div class="summary-card" id="safeSummary" style="display: none;">
+          <p class="summary-title">
+            <strong>주요 점검 모두 양호해요.</strong>
+          </p>
+          <ul class="summary-list">
+            <li class="summary-item">
+              <span>🏠 매물 진단</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+            <li class="summary-item">
+              <span>👨🏻 집주인 진단</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+            <li class="summary-item">
+              <span>📊 시세 진단</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+            <li class="summary-item">
+              <span>💰 대출/보험 진단</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+            <li class="summary-item">
+              <span>🚔 범죄/치안</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+            <li class="summary-item">
+              <span>🛒 생활/편의</span>
+              <span class="summary-status summary-status-safe">양호</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="summary-card" id="clauseSummaryCard">
+          <p class="summary-title">
+            <strong>이 집 맞춤형 특약도 확인</strong><span>해보세요!</span>
+          </p>
+          <div class="summary-item">
+            <span>✅ 안전한 계약을 위한 추천 특약</span>
+            <span class="summary-count">7개</span>
+          </div>
+        </div>
+
+        <p class="disclaimer">
+          지킴진단리포트는 등기부, 건축물 대장을 기준으로 제공되며,<br>
+          실제와 다르거나 발급일 이후 변동사항과는 상이할 수 있습니다.
+        </p>
+      </section>
+
+      <!-- Tab Navigation -->
+      <nav class="tab-navigation" id="tabNavigation">
+        <button class="tab-button active" data-tab="property" onclick="switchTab('property')">
+          <span>매물 진단</span>
+          <span class="tab-count">(5)</span>
+        </button>
+        <button class="tab-button" data-tab="owner" onclick="switchTab('owner')">
+          <span>집주인 진단</span>
+          <span class="tab-count">(2)</span>
+        </button>
+        <button class="tab-button" data-tab="market" onclick="switchTab('market')">
+          <span>시세진단</span>
+          <span class="tab-count">(1)</span>
+        </button>
+        <button class="tab-button" data-tab="loan" onclick="switchTab('loan')">
+          <span>대출/보험 진단</span>
+          <span class="tab-count">(3)</span>
+        </button>
+        <button class="tab-button" data-tab="safety" onclick="switchTab('safety')">
+          <span>범죄/치안</span>
+        </button>
+        <button class="tab-button" data-tab="convenience" onclick="switchTab('convenience')">
+          <span>생활/편의</span>
+        </button>
+        <button class="tab-button" data-tab="clause" onclick="switchTab('clause')">
+          <span>맞춤 특약</span>
+        </button>
+      </nav>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <!-- Property Diagnosis Tab -->
+        <div class="tab-panel active" id="tab-property">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">집의 권리관계를 분석하여<br>위험한 요소들을 체크했어요!</h2>
+              <p class="section-description">등기부등본을 확인해 근저당·압류·경매 같은 보증금 보호에 영향을 주는 위험 권리가 있는지 보는거라 중요해요.</p>
+            </div>
+
+            <div class="ai-analysis-box">
+              <div class="ai-badge-small">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                </svg>
+                <span>집 위험도 분석 AI 요약</span>
+              </div>
+              <p class="ai-analysis-text">
+                이 집은 <strong>지상권이 설정</strong>되어 있고,<br>
+                압류·가압류·근저당 등<br>
+                <strong>몇 가지 권리 관계가 확인</strong>되었어요.<br>
+                또한 <strong>경매가 곧 진행</strong>될 수 있어요.
+              </p>
+            </div>
+
+            <!-- Basic Information -->
+            <div class="section-block">
+              <h3 class="block-title">📌 기본 정보</h3>
+              <div class="divider"></div>
+              <div class="info-row">
+                <span class="info-label">소재지</span>
+                <p class="info-value">서울시 양천구 중앙로333(신월동)<br>제9층 902호</p>
+              </div>
+              <div class="info-row">
+                <span class="info-label">주택유형</span>
+                <span class="info-value">집합건물(오피스텔)</span>
+              </div>
+              <div class="explanation-box">
+                <p class="explanation-title">💬 집합건물이란?</p>
+                <p class="explanation-text">집합건물은 한 동의 건물 안에서 구조상 구분된 여러 공간을 각각 독립된 소유로 나눌 수 있는 건물을 말해요.<br>아파트·오피스텔·상가 등 다양한 형태가 여기에 포함됩니다.</p>
+              </div>
+              <div class="info-row">
+                <span class="info-label">계약유형</span>
+                <span class="info-value">전세</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">계약기간</span>
+                <span class="info-value">24개월</span>
+              </div>
+            </div>
+
+            <!-- Building Registry Analysis -->
+            <div class="section-block">
+              <div class="block-header">
+                <h3 class="block-title">📌 건축물대장 분석</h3>
+                <button class="info-icon-button" aria-label="정보">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 16V12M12 8H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="divider"></div>
+              
+              <!-- Accordion Item: Safe (Collapsed) -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">위반건축물</span>
+                    <span class="status-tag status-tag-safe">양호</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">해당 없음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <p class="accordion-description">위반건축물이 확인되지 않았습니다.</p>
+                  <div class="explanation-box">
+                    <p class="explanation-title">💬 위반건축물이란?</p>
+                    <p class="explanation-text">위반건축물은 건축법이나 관련 법령을 위반하여 건축된 건물을 말해요. 위반건축물이 있는 경우 철거나 보수 명령을 받을 수 있어 계약에 영향을 줄 수 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rights Analysis -->
+            <div class="section-block">
+              <div class="block-header">
+                <h3 class="block-title">📌 권리 관계 분석</h3>
+                <button class="info-icon-button" aria-label="정보">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 16V12M12 8H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="divider"></div>
+
+              <!-- Accordion Item: Safe (Collapsed) -->
+              <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">대지권</span>
+                    <span class="status-tag status-tag-safe">양호</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">있음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <p class="accordion-description">대지권이 정상적으로 설정되어 있습니다.</p>
+                  <div class="explanation-box">
+                    <p class="explanation-title">💬 대지권이란?</p>
+                    <p class="explanation-text">대지권은 집합건물(아파트, 오피스텔 등)에서 각 세대가 건물이 있는 토지를 함께 사용할 수 있는 권리를 말해요. 대지권이 정상적으로 설정되어 있으면 건물과 토지의 권리 관계가 명확하여 안전합니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">압류/가압류</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">있음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>가압류가 발견되었어요!</strong>
+                    </p>
+                    <p class="warning-description">가압류로 8억 5,000만원이 설정되어있어요.</p>
+                  </div>
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>가압류/압류는 왜 주의해야하나요?</strong>
+                    </p>
+                    <p class="warning-description">
+                      압류/가압류가 되도 거주, 전입신고가 가능해요.<br>
+                      다만 이 집은 조만간 경매될 가능성이 높고 이 경우 임차인은 경매를 통하여 집의 새로운 주인이 된 사람(경락인)에게 임대차 관련 권리를 주장(대항)할 수 없어요.<br>
+                      결국 새로운 집주인(경락인)에게 나의 보증금을 돌려달라고 할 수 없다는 뜻이에요.
+                    </p>
+                    <button class="clause-button" onclick="switchTab('clause')">계약 전, 맞춤 특약 바로 보기</button>
+                  </div>
+                  <div class="explanation-box">
+                    <p class="explanation-title">💬 가압류란?</p>
+                    <p class="explanation-text">집주인(채무자)에게 돈을 빌려준 사람(가압류 채권자)이 집주인이 돈을 갚지 않을 것에 대비하여 집주인이 부동산 등 다른 재산을 함부로 처분하지 못하도록 미리 하는 장치예요.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">경매개시결정</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">있음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>이 집은 곧 경매로 넘어갈 예정이에요!</strong>
+                    </p>
+                    <p class="warning-description">경매개시결정이 있는 집에 실제 거주하는 것은 가능하지만(전입신고도 가능해요), 법에서 정한 최우선변제권자가 될 수 없음을 주의해야 해요.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">근저당권</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">있음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>공동담보 때문에 보증금 보호가 힘들 수 있어요.</strong>
+                    </p>
+                    <p class="warning-description">
+                      이 건물에는 7억 5,480만 원 규모의 대출이 통째로 묶여 있어, 경매 시 채권자가 먼저 가져간 뒤 남는 돈이 거의 없을 수 있어요.<br>
+                      세대당 위험이 매우 큰 구조이기 때문에 전세·월세 계약 모두 주의가 필요합니다.
+                    </p>
+                    <button class="clause-button" onclick="switchTab('clause')">계약 전, 맞춤 특약 바로 보기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Owner Diagnosis Tab -->
+        <div class="tab-panel" id="tab-owner">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">집주인 안정성을 확인했어요!</h2>
+              <p class="section-description">소유자 정보와 임대사업자 등록 여부를 확인하여 안정적인 계약을 도와드립니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 소유자 정보</h3>
+              <div class="divider"></div>
+              <div class="info-row">
+                <span class="info-label">소유구분</span>
+                <span class="info-value">개인</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">소유자</span>
+                <span class="info-value">홍길동</span>
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 소유주 상세 분석</h3>
+              <div class="divider"></div>
+              
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">임대사업자 여부</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">미등록</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>임대사업자로 등록되지 않았어요!</strong>
+                    </p>
+                    <p class="warning-description">
+                      임대사업자로 등록되지 않은 경우, 세금 관련 문제나 법적 보호가 제한될 수 있어요.<br>
+                      계약 전 집주인에게 임대사업자 등록 여부를 확인하는 것이 좋습니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Market Diagnosis Tab -->
+        <div class="tab-panel" id="tab-market">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">시세를 분석했어요!</h2>
+              <p class="section-description">시세 대비 전세금 비율과 전세가율을 분석하여 보증금 회수 위험도를 평가합니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 시세 진단</h3>
+              <div class="divider"></div>
+              
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">시세 대비 전세금 비율</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">85%</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>시세 대비 전세금이 높아요!</strong>
+                    </p>
+                    <p class="warning-description">
+                      시세 대비 전세금 비율이 85%로 높은 편입니다. 이는 보증금 회수 시 위험이 있을 수 있어요.<br>
+                      전세가율이 높을수록 보증금 회수 위험이 증가합니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">전세가율 분석</span>
+                <span class="info-value">62%</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">기존 채무금액</span>
+                <span class="info-value">7억 5,480만원</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">여유금액</span>
+                <span class="info-value">-2억 480만원</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Loan/Insurance Diagnosis Tab -->
+        <div class="tab-panel" id="tab-loan">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">대출/보험을 확인했어요!</h2>
+              <p class="section-description">보증보험 가입 가능 여부를 확인하여 보증금 보호 방안을 제시합니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 대출/보험 진단</h3>
+              <div class="divider"></div>
+              
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">보증보험 가입 가능 여부</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">가능성 낮음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>보증보험 가입이 어려울 수 있어요!</strong>
+                    </p>
+                    <p class="warning-description">
+                      근저당권 금액이 높고 경매 절차가 진행 중이어서 보증보험 가입이 어려울 수 있어요.<br>
+                      이 경우 계약 시 특약 조항을 포함하여 보증금을 보호하는 것이 중요합니다.
+                    </p>
+                    <button class="clause-button" onclick="switchTab('clause')">계약 전, 맞춤 특약 바로 보기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Safety/Crime Tab -->
+        <div class="tab-panel" id="tab-safety">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">범죄/치안을 확인했어요!</h2>
+              <p class="section-description">주변 치안 환경과 보안 시설을 확인하여 안전한 거주 환경을 평가합니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 범죄/치안</h3>
+              <div class="divider"></div>
+              
+              <!-- Accordion Item: Warning (Expanded) -->
+              <div class="accordion-item accordion-expanded">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-header-left">
+                    <span class="accordion-label">범죄발생율</span>
+                    <span class="status-tag status-tag-warning">확인 필요</span>
+                  </div>
+                  <div class="accordion-header-right">
+                    <span class="accordion-value">평균보다 높음</span>
+                    <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="accordion-content">
+                  <div class="warning-box">
+                    <p class="warning-text">
+                      <span class="warning-icon">❗</span>
+                      <strong>범죄발생율이 평균보다 높아요!</strong>
+                    </p>
+                    <p class="warning-description">
+                      해당 지역의 범죄발생율이 서울시 평균보다 높게 나타났어요.<br>
+                      야간 외출 시 주의가 필요하며, 주변 CCTV 설치 여부를 확인하는 것이 좋습니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">CCTV 설치</span>
+                <span class="info-value">양호</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">유흥업소</span>
+                <span class="info-value">없음</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Convenience Tab -->
+        <div class="tab-panel" id="tab-convenience">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">생활/편의를 확인했어요!</h2>
+              <p class="section-description">주변 편의시설과 정주여건을 비교하여 생활 편의성을 평가합니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 생활/편의</h3>
+              <div class="divider"></div>
+              
+              <div class="convenience-grid">
+                <div class="convenience-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+                  </svg>
+                  <span>지하철 5분</span>
+                </div>
+                <div class="convenience-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.9 18 5 18.9 5 20C5 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 4H5L7.68 14.39C7.77 14.69 8.07 14.92 8.38 14.92H19V16.92H8C7.45 16.92 6.95 16.55 6.73 16.04L4.42 10H1V4ZM17 18C15.9 18 15 18.9 15 20C15 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="currentColor"/>
+                  </svg>
+                  <span>마트 3분</span>
+                </div>
+                <div class="convenience-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 8H18V6C18 3.79 16.21 2 14 2H10C7.79 2 6 3.79 6 6V8H5C3.9 8 3 8.9 3 10V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V10C21 8.9 20.1 8 19 8ZM8 6C8 4.9 8.9 4 10 4H14C15.1 4 16 4.9 16 6V8H8V6ZM19 20H5V10H19V20Z" fill="currentColor"/>
+                  </svg>
+                  <span>병원 7분</span>
+                </div>
+                <div class="convenience-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 13.18V17H7V12.09L10 13.18V17H12V11.09L15 12.18V17H17V10.18L12 8.09L7 10.18V13.18H5ZM12 6L22 10V12H2V10L12 6Z" fill="currentColor"/>
+                  </svg>
+                  <span>학교 10분</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Special Clause Tab -->
+        <div class="tab-panel" id="tab-clause">
+          <section class="diagnosis-section">
+            <div class="section-intro">
+              <h2 class="section-title">맞춤 특약을 확인하세요!</h2>
+              <p class="section-description">이 집의 위험 요소에 맞는 법적 보호 특약 조항을 제공합니다.</p>
+            </div>
+
+            <div class="section-block">
+              <h3 class="block-title">📌 추천 특약</h3>
+              <div class="divider"></div>
+              
+              <div class="clause-card">
+                <div class="clause-header">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div>
+                    <h4 class="clause-title">경매 절차 대비 특약</h4>
+                    <p class="clause-description">경매개시결정이 있는 경우 보증금 보호를 위한 특약입니다.</p>
+                  </div>
+                </div>
+                <div class="clause-content">
+                  <div class="clause-content-header">
+                    <span class="clause-label">특약 조항</span>
+                    <button class="clause-copy-button" onclick="copyClause('clause1')">복사</button>
+                  </div>
+                  <p class="clause-text" id="clause1">
+                    임대인은 본 건물에 경매개시결정이 있음을 임차인에게 고지하였으며, 임차인은 이를 인지하고 계약을 체결한다. 
+                    만약 경매로 인해 임차인이 보증금을 회수하지 못할 경우, 임대인은 즉시 보증금 전액을 반환하여야 한다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-action-bar">
+      <button class="action-button action-button-secondary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 8C19.6569 8 21 9.34315 21 11C21 12.6569 19.6569 14 18 14C16.3431 14 15 12.6569 15 11C15 9.34315 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 15C7.65685 15 9 16.3431 9 18C9 19.6569 7.65685 21 6 21C4.34315 21 3 19.6569 3 18C3 16.3431 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 8V5C18 4.46957 17.7893 3.96086 17.4142 3.58579C17.0391 3.21071 16.5304 3 16 3H8C7.46957 3 6.96086 3.21071 6.58579 3.58579C6.21071 3.96086 6 4.46957 6 5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 15V19C6 19.5304 6.21071 20.0391 6.58579 20.4142C6.96086 20.7893 7.46957 21 8 21H16C16.5304 21 17.0391 20.7893 17.4142 20.4142C17.7893 20.0391 18 19.5304 18 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>공유하기</span>
+      </button>
+      <button class="action-button action-button-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>PDF 다운로드</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize page based on report type
+    window.addEventListener('DOMContentLoaded', function() {
+      const reportType = sessionStorage.getItem('reportType') || 'risky';
+      initializeReportType(reportType);
+    });
+
+    function initializeReportType(type) {
+      const riskySummary = document.getElementById('riskySummary');
+      const safeSummary = document.getElementById('safeSummary');
+      const aiSummaryText = document.getElementById('aiSummaryText');
+      const clauseSummaryCard = document.getElementById('clauseSummaryCard');
+      const riskyGradeCard = document.getElementById('riskyGradeCard');
+      const safeGradeCard = document.getElementById('safeGradeCard');
+
+      if (type === 'safe') {
+        // Safe property - show safe summary
+        riskySummary.style.display = 'none';
+        safeSummary.style.display = 'block';
+        clauseSummaryCard.style.display = 'none';
+        riskyGradeCard.style.display = 'none';
+        safeGradeCard.style.display = 'block';
+        
+        // Update AI summary for safe property
+        aiSummaryText.innerHTML = '이 집은 <strong>모든 주요 점검 항목이 양호</strong>합니다.<br>권리관계, 소유자 안정성, 시세 등<br>모든 진단 결과가 <strong>안전한 수준</strong>이에요.<br>안심하고 계약을 진행하셔도 됩니다.';
+
+        // Hide warning accordions and show safe ones
+        document.querySelectorAll('.accordion-item.accordion-expanded').forEach(item => {
+          const statusTag = item.querySelector('.status-tag-warning');
+          if (statusTag) {
+            item.classList.remove('accordion-expanded');
+          }
+        });
+
+        // Update tab counts to show all safe
+        document.querySelectorAll('.tab-count').forEach(count => {
+          count.textContent = '(0)';
+        });
+      } else {
+        // Risky property - show risky summary (default)
+        riskySummary.style.display = 'block';
+        safeSummary.style.display = 'none';
+        clauseSummaryCard.style.display = 'block';
+        riskyGradeCard.style.display = 'block';
+        safeGradeCard.style.display = 'none';
+      }
+    }
+
+    // Tab switching
+    function switchTab(tabName) {
+      // Hide all tab panels
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      
+      // Remove active class from all tab buttons
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      // Show selected tab panel
+      const selectedPanel = document.getElementById(`tab-${tabName}`);
+      if (selectedPanel) {
+        selectedPanel.classList.add('active');
+      }
+      
+      // Add active class to selected tab button
+      const selectedButton = document.querySelector(`[data-tab="${tabName}"]`);
+      if (selectedButton) {
+        selectedButton.classList.add('active');
+      }
+      
+      // Scroll to top of tab content
+      const tabContent = document.querySelector('.tab-content');
+      if (tabContent) {
+        tabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Accordion toggle
+    function toggleAccordion(button) {
+      const accordionItem = button.closest('.accordion-item');
+      const isExpanded = accordionItem.classList.contains('accordion-expanded');
+      
+      if (isExpanded) {
+        accordionItem.classList.remove('accordion-expanded');
+      } else {
+        accordionItem.classList.add('accordion-expanded');
+      }
+    }
+
+    // Copy clause text
+    function copyClause(clauseId) {
+      const clauseText = document.getElementById(clauseId).textContent;
+      navigator.clipboard.writeText(clauseText).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '복사됨';
+        button.style.backgroundColor = 'var(--Zigbang-Sub-Brand-Zikim)';
+        button.style.color = 'white';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+          button.style.color = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('복사 실패:', err);
+        alert('복사에 실패했습니다. 다시 시도해주세요.');
+      });
+    }
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지킴진단</title>
+  <link rel="stylesheet" href="../Design/assets/zuiX2.0-variables.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <button class="header-button" aria-label="뒤로가기" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="header-title">지킴진단</h1>
+      <button class="header-button" aria-label="도움말">
+        <i class="fa-solid fa-question-circle"></i>
+      </button>
+    </header>
+
+    <!-- Service Introduction -->
+    <section class="service-intro-section">
+      <div class="service-intro-content">
+        <div class="service-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h2 class="service-title">보증금 안전 진단</h2>
+        <p class="service-description">
+          매물의 계약 안정성을 전문가가 분석하여<br>
+          안전한 계약을 도와드립니다
+        </p>
+      </div>
+      
+      <!-- Diagnosis Report Contents -->
+      <div class="report-contents-box">
+        <h3 class="report-contents-title">진단 리포트 포함 내용</h3>
+        <div class="report-contents-list">
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>매물진단: 권리관계, 근저당, 전세가율 분석</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>소유자 안정성: 집주인 신뢰도 확인</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>시세 진단: 보증금 회수 위험도 평가</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>대출/보험 진단: 보증보험 가입 가능 여부</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>범죄/치안: 보안시설, 범죄발생율 분석</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>생활/편의: 편의시설 분포, 정주여건 비교</span>
+          </div>
+          <div class="report-content-item">
+            <i class="fa-solid fa-check"></i>
+            <span>법적 보호 특약 조항 (위험 요소 발견 시)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Property Info Form -->
+    <section class="property-form-section">
+      <h3 class="form-section-title">매물 정보를 확인해주세요</h3>
+      
+      <!-- Address Input (Pre-filled) -->
+      <div class="form-group">
+        <label class="form-label">주소</label>
+        <div class="input-wrapper">
+          <input type="text" id="address" value="서울시 양천구 중앙로333 (신월동) 제9층 902호" class="form-input" readonly>
+          <button class="input-icon-button">
+            <i class="fa-solid fa-map-marker-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Area Input (Pre-filled) -->
+      <div class="form-group">
+        <label class="form-label">면적</label>
+        <div class="input-wrapper">
+          <input type="text" id="area" value="84" class="form-input" readonly>
+          <span class="input-suffix">㎡</span>
+        </div>
+      </div>
+
+      <!-- Deposit Input -->
+      <div class="form-group">
+        <label class="form-label">보증금 <span class="required">*</span></label>
+        <div class="input-wrapper">
+          <input type="text" id="deposit" placeholder="5억원" class="form-input">
+          <span class="input-suffix">만원</span>
+        </div>
+      </div>
+
+      <!-- Monthly Rent Input -->
+      <div class="form-group">
+        <label class="form-label">월세 <span class="optional">(선택)</span></label>
+        <div class="input-wrapper">
+          <input type="text" id="monthlyRent" placeholder="50" class="form-input">
+          <span class="input-suffix">만원</span>
+        </div>
+      </div>
+
+      <!-- Contract Period -->
+      <div class="form-group">
+        <label class="form-label">희망 계약 기간 <span class="required">*</span></label>
+        <div class="period-buttons">
+          <button class="period-button" data-period="12">1년</button>
+          <button class="period-button" data-period="24">2년</button>
+          <button class="period-button" data-period="36">3년</button>
+        </div>
+      </div>
+
+      <!-- Price Info -->
+      <div class="price-info-box">
+        <div class="price-info-row">
+          <span class="price-label">진단 비용</span>
+          <span class="price-value">29,000원</span>
+        </div>
+        <p class="price-description">결제 후 최대 20분 이내에 리포트가 발급됩니다</p>
+      </div>
+
+      <!-- Terms Agreement -->
+      <div class="terms-agreement">
+        <label class="checkbox-label">
+          <input type="checkbox" id="termsAgree" class="checkbox-input">
+          <span class="checkbox-text">서비스 이용약관 및 개인정보 처리방침에 동의합니다</span>
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="submit-button" id="submitButton" onclick="proceedToPayment()" disabled>
+        진단 시작하기
+      </button>
+    </section>
+  </div>
+
+  <script>
+    let selectedPeriod = null;
+
+    // Period button selection
+    document.querySelectorAll('.period-button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.period-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        selectedPeriod = this.dataset.period;
+        checkFormValidity();
+      });
+    });
+
+    // Form validation
+    function checkFormValidity() {
+      const address = document.getElementById('address').value.trim();
+      const area = document.getElementById('area').value.trim();
+      const deposit = document.getElementById('deposit').value.trim();
+      const termsAgree = document.getElementById('termsAgree').checked;
+
+      const isValid = address && area && deposit && selectedPeriod && termsAgree;
+      document.getElementById('submitButton').disabled = !isValid;
+      
+      if (isValid) {
+        document.getElementById('submitButton').classList.add('enabled');
+      } else {
+        document.getElementById('submitButton').classList.remove('enabled');
+      }
+    }
+
+    // Add event listeners
+    document.getElementById('deposit').addEventListener('input', checkFormValidity);
+    document.getElementById('termsAgree').addEventListener('change', checkFormValidity);
+
+    function proceedToPayment() {
+      // Save form data to sessionStorage
+      const formData = {
+        address: document.getElementById('address').value,
+        area: document.getElementById('area').value,
+        deposit: document.getElementById('deposit').value,
+        monthlyRent: document.getElementById('monthlyRent').value,
+        period: selectedPeriod,
+        hasAddress: true
+      };
+      sessionStorage.setItem('diagnosisFormData', JSON.stringify(formData));
+      
+      // Navigate to payment screen
+      window.location.href = 'payment.html';
+    }
+  </script>
+</body>
+</html>
+
+
