@@ -137,12 +137,13 @@ export const RULE_CARDS_LOCAL: RuleCard[] = [
     key: "owner.matches.landlord",
     section: "owner",
     severity: "warn",
-    title: "소유자 - 임대인 동일여부",
+    title: "소유자-임대인 불일치",
     description:
-      "이 집은 소유자와 임대인이 같을 예정이에요. 다만, 실제 계약시에 다시 한번 확인하세요.",
+      "계약서의 임대인이 등기부상 소유자와 다르면, 계약 상대방 적격(대리권/위임 여부 등)을 반드시 확인해야 해요.",
+    // ⚠️ MVP 기준: flags가 true면 '확인 필요(불일치)'로 취급
     when: (ctx) => ctx.flags["owner.matches.landlord"] === true,
-    passText: "불일치",
-    failText: "일치",
+    passText: "일치",
+    failText: "불일치",
     order: 30,
   },
   {
