@@ -33,3 +33,68 @@ When working with Figma designs, follow the rules defined in `CURSOR_PROJECT_PRO
 - Safe items: collapsed by default
 - Warning items: expanded by default
 - Use 2-level risk status: "양호" (Green) / "확인 필요" (Red)
+
+---
+
+# ZUIX Cursor Rules (zuix2)
+
+## Goal
+- Implement UI using ZUIX components + ZUIX tokens.
+- Do not re-implement components with ad-hoc View/Text/StyleSheet when a ZUIX component exists.
+
+## Source of truth (order)
+1) ZUIX Storybook: https://zuix2.zigbang.io/
+2) Existing ZUIX components in `packages/zuix/src/components`
+3) ZUIX design tokens & types in `packages/zuix/src/types`
+4) Utilities in `packages/zuix/src/utils`
+5) Only if no match exists: create a new component (+ story)
+
+## Import rules
+- Follow the repo alias rule: use `~` alias for internal imports.
+- Prefer imports like:
+  - import { X } from "~/components/..."
+  - import { Color, Margin } from "~/types"
+  - import { revertMargin } from "~/utils/style"
+- Do not introduce new path aliasing styles.
+
+## Styling method (RN-first)
+- Use `react-native` StyleSheet for styles:
+  - const s = StyleSheet.create({ ... })
+- Define StyleSheet objects and pure helper functions OUTSIDE the component for performance.
+- Avoid `useMemo` and `useCallback` unless absolutely necessary.
+- Do not add arbitrary inline styles; keep styles in StyleSheet except tiny composition arrays.
+
+## Tokens (design system)
+- Colors MUST come from `Color` (from `~/types`). No raw hex or rgba in component styles.
+- Spacing/layout: components should NOT control layout/spacing except via `Margin` support.
+- Margin support is required:
+  - Root props should extend `Margin`
+  - Root style must include `revertMargin(props)` in the style array.
+
+## Interaction & Text rendering conventions
+- Touchable areas MUST use `~/components/Pressable`.
+- TextType rendering MUST use `renderTextByProps` to support string / props / JSX.
+- When overriding handlers, preserve user props:
+  - call user handlers inside your handler (e.g., textInputProps?.onFocus?.(e))
+
+## Web-only CSS note
+- `packages/zuix/src/styles` is for web helpers (e.g., Pressable touchPadding classes like `zuix-tp-{value}`).
+- Do not treat `style.css` as design tokens. Tokens live in `packages/zuix/src/types`.
+
+## When creating a new component (allowed but controlled)
+Only if:
+- No equivalent exists in Storybook or components folder.
+Then:
+- Create under `packages/zuix/src/components/<name>/...`
+- Follow the interface guide:
+  - props names align with design tokens (title, subtitle, badge...)
+  - extend Root Element Props + Margin
+  - document defaults in JSDoc (e.g., `/** @default 14 */`)
+  - do not use reserved props: left/top/right/bottom
+- Add or update Storybook stories.
+
+## Output expectation
+When implementing anything:
+- List the ZUIX components used.
+- Mention which tokens from `~/types` are used (Color, etc).
+- If you had to add a missing token/component, explain why and where.
