@@ -42,85 +42,6 @@ function mutedBoxClass() {
   return "rounded-[var(--border-radius-xl)] bg-[color:var(--muted)] px-[var(--spacing-4)] py-[var(--spacing-3)]";
 }
 
-function TabPill({
-  active,
-  label,
-  count,
-}: {
-  active: boolean;
-  label: string;
-  count?: number;
-}) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1 rounded-full px-3 py-2 text-[13px] leading-[18px]",
-        active
-          ? "bg-[color:var(--primary)] text-[color:var(--primary-foreground)]"
-          : "bg-[color:var(--secondary)] text-[color:var(--secondary-foreground)]"
-      )}
-    >
-      <span className={cn("font-semibold", active && "font-bold")}>{label}</span>
-      {typeof count === "number" ? (
-        <span
-          className={cn(
-            "ml-0.5 rounded-full px-1.5 py-0.5 text-[11px] font-bold leading-[14px]",
-            active
-              ? "bg-[color:var(--primary-foreground)]/20 text-[color:var(--primary-foreground)]"
-              : "bg-[color:var(--background)] text-[color:var(--muted-foreground)] ring-1 ring-[color:var(--border)]"
-          )}
-        >
-          {count}
-        </span>
-      ) : null}
-    </span>
-  );
-}
-
-function SectionHeader({
-  icon,
-  title,
-  subtitle,
-  failedCount,
-}: {
-  icon: string;
-  title: string;
-  subtitle: string;
-  failedCount?: number;
-}) {
-  const failed = (failedCount ?? 0) > 0;
-  return (
-    <div className="flex items-start justify-between gap-[var(--spacing-4)]">
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="text-[18px] leading-none">{icon}</span>
-          <h3 className="truncate text-[var(--font-size-xl)] font-bold leading-[30px] text-[color:var(--foreground)]">
-            {title}
-          </h3>
-        </div>
-        <p className="mt-[var(--spacing-1)] whitespace-pre-line text-[var(--font-size-sm)] leading-[var(--font-leading-6)] text-[color:var(--secondary-foreground)]">
-          {subtitle}
-        </p>
-      </div>
-      {typeof failedCount === "number" ? (
-        <div className="shrink-0 text-right">
-          <span
-            className={cn(
-              "inline-flex items-center rounded-full px-2 py-1 text-[11px] font-bold leading-[14px]",
-              statusPillClass(failed)
-            )}
-          >
-            {statusLabel(failed)}
-          </span>
-          <div className="mt-1 text-[11px] font-medium leading-[14px] text-[color:var(--muted-foreground)]">
-            {failed ? `확인 필요 ${failedCount}개` : "확인 필요 0개"}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
 // ✅ MVP 더미 데이터 (파일 상단 하드코딩)
 const DUMMY_FLAGS: Record<string, boolean> = {
   "building.violation": true,
@@ -406,7 +327,7 @@ export default function ReportDetailPage() {
 
         {/* 탭 (Sticky) */}
         <nav className="sticky top-[52px] z-20 -mx-[var(--spacing-5)] border-b border-[color:var(--border)] bg-[color:var(--background)]">
-          <div className="flex items-center gap-2 overflow-x-auto px-[var(--spacing-5)] py-[var(--spacing-2)]">
+          <div className="flex h-12 overflow-x-auto px-[var(--spacing-2)]">
             {TABS.map((t) => {
               const isActive = activeTab === t.key;
               return (
@@ -418,9 +339,14 @@ export default function ReportDetailPage() {
                     if (!el) return;
                     el.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className="shrink-0"
+                  className={cn(
+                    "flex shrink-0 flex-col items-center justify-center px-3 pt-4 pb-3 text-sm",
+                    isActive
+                      ? "border-b-2 border-[var(--Zigbang-Orange-600)] font-bold text-[var(--Zigbang-Orange-600)]"
+                      : "font-medium text-[color:var(--secondary-foreground)]"
+                  )}
                 >
-                  <TabPill active={isActive} label={t.label} count={t.count} />
+                  {t.label} {typeof t.count === "number" ? `(${t.count})` : ""}
                 </button>
               );
             })}
@@ -437,16 +363,17 @@ export default function ReportDetailPage() {
             }}
             className="scroll-mt-[140px]"
           >
-            <SectionHeader
-              icon="🏠"
-              title="매물 진단"
-              subtitle={
-                "등기부/건축물대장 기반으로\n보증금에 영향을 줄 수 있는 위험 요소를 확인했어요."
-              }
-              failedCount={failedCount.property}
-            />
+            <h3 className="text-[var(--font-size-xl)] font-bold leading-[30px] text-[color:var(--foreground)]">
+              집의 권리관계를 분석하여
+              <br />
+              위험한 요소들을 체크했어요!
+            </h3>
+            <p className="mt-[var(--spacing-1)] text-[var(--font-size-sm)] leading-[var(--font-leading-6)] text-[color:var(--secondary-foreground)]">
+              등기부등본을 확인해 근저당·압류·경매 같은 보증금 보호에 영향을
+              주는 위험 권리가 있는지 보는거라 중요해요.
+            </p>
 
-            <div className="mt-[var(--spacing-4)] rounded-[var(--border-radius-xl)] bg-[color:var(--accent)]/60 p-[var(--spacing-5)] text-center">
+            <div className="mt-[var(--spacing-4)] rounded-[var(--border-radius-3xl)] bg-gradient-to-l from-[#4042ff]/5 to-[#57a3ff]/5 p-[var(--spacing-5)] text-center">
               <div className="mx-auto inline-flex items-center gap-1 rounded-full bg-[color:var(--background)] px-2 py-1 text-[11px] font-bold text-[color:var(--ring)]">
                 집 위험도 분석 AI 요약
               </div>
@@ -506,7 +433,7 @@ export default function ReportDetailPage() {
                 📌 권리 관계 분석
               </h4>
               <hr className="my-[var(--spacing-3)] border-t border-[color:var(--border)]" />
-              <div className="divide-y divide-[color:var(--border)]">
+              <div className="divide-y divide-[#f2f2f2]">
                 {rulesBySection.property.map((card) => {
                   const failed = ctx.flags[card.key] === true;
                   const open = openKeys[card.key] === true;
@@ -602,12 +529,13 @@ export default function ReportDetailPage() {
             }}
             className="scroll-mt-[140px]"
           >
-            <SectionHeader
-              icon="👤"
-              title="집주인 진단"
-              subtitle={"소유자/임대인 일치 여부 등\n계약 상대방 확인 포인트를 체크했어요."}
-              failedCount={failedCount.owner}
-            />
+            <h3 className="text-[var(--font-size-xl)] font-bold leading-[30px] text-[color:var(--foreground)]">
+              집주인 정보를 확인했어요
+            </h3>
+            <p className="mt-[var(--spacing-1)] text-[var(--font-size-sm)] leading-[var(--font-leading-6)] text-[color:var(--secondary-foreground)]">
+              소유자/임대인 일치 여부 등 계약 전 확인이 필요한 포인트를
+              체크했어요.
+            </p>
 
             <div className={cn(cardClass(), "mt-[var(--spacing-6)] p-[var(--spacing-5)]")}>
               <div className="text-[var(--font-size-base)] font-bold text-[color:var(--foreground)]">
@@ -630,7 +558,7 @@ export default function ReportDetailPage() {
               </div>
             </div>
 
-            <div className={cn(cardClass(), "mt-[var(--spacing-6)] divide-y divide-[color:var(--border)]")}>
+            <div className={cn(cardClass(), "mt-[var(--spacing-6)] divide-y divide-[#f2f2f2]")}>
               {rulesBySection.owner.map((card) => {
                 const failed = ctx.flags[card.key] === true;
                 const open = openKeys[card.key] === true;
@@ -696,12 +624,12 @@ export default function ReportDetailPage() {
             }}
             className="scroll-mt-[140px]"
           >
-            <SectionHeader
-              icon="📊"
-              title="시세 진단"
-              subtitle={"시세 추정액과 채무/보증금 정보를 기반으로\n안전 여유 금액을 계산했어요."}
-              failedCount={failedCount.price}
-            />
+            <h3 className="text-[var(--font-size-xl)] font-bold leading-[30px] text-[color:var(--foreground)]">
+              시세/보증금 안전성을 확인했어요
+            </h3>
+            <p className="mt-[var(--spacing-1)] text-[var(--font-size-sm)] leading-[var(--font-leading-6)] text-[color:var(--secondary-foreground)]">
+              시세 추정액과 채무/보증금 정보를 기반으로 여유 금액을 계산했어요.
+            </p>
 
             <div className={cn(cardClass(), "mt-[var(--spacing-6)] p-[var(--spacing-5)]")}>
               <div className="flex items-start justify-between gap-[var(--spacing-4)]">
@@ -742,7 +670,7 @@ export default function ReportDetailPage() {
               </div>
             </div>
 
-            <div className={cn(cardClass(), "mt-[var(--spacing-6)] divide-y divide-[color:var(--border)]")}>
+            <div className={cn(cardClass(), "mt-[var(--spacing-6)] divide-y divide-[#f2f2f2]")}>
               {rulesBySection.price.map((card) => {
                 const failed = ctx.flags[card.key] === true;
                 const open = openKeys[card.key] === true;
@@ -809,12 +737,12 @@ export default function ReportDetailPage() {
             className="scroll-mt-[140px]"
           >
             <div ref={clauseTopRef} />
-            <SectionHeader
-              icon="🧾"
-              title="맞춤 특약"
-              subtitle={"불확실한 부분은 특약으로 보완하는 게 좋아요.\n(목업) 추천 특약은 이후 로직으로 고도화 예정"}
-              failedCount={clauseMessages.length}
-            />
+            <h3 className="text-[var(--font-size-xl)] font-bold leading-[30px] text-[color:var(--foreground)]">
+              이 집 맞춤 특약
+            </h3>
+            <p className="mt-[var(--spacing-1)] text-[var(--font-size-sm)] leading-[var(--font-leading-6)] text-[color:var(--secondary-foreground)]">
+              위험 요소가 있거나 불확실한 부분은 특약으로 보완하는 게 좋아요.
+            </p>
 
             <div className="mt-[var(--spacing-6)] space-y-[var(--spacing-2)]">
               {clauseMessages.map((m) => (
