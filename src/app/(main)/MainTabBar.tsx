@@ -37,12 +37,20 @@ export default function MainTabBar() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[color:var(--border)] bg-white/95 backdrop-blur"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[color:var(--border)] bg-[color:var(--background)]/95 backdrop-blur"
       aria-label="하단 탭"
     >
-      <div className="mx-auto flex w-full max-w-md px-[var(--spacing-5)] pt-[var(--spacing-3)] pb-[calc(env(safe-area-inset-bottom)+var(--spacing-4))]">
+      <div className="mx-auto flex w-full max-w-md gap-2 px-[var(--spacing-5)] pt-[var(--spacing-2)] pb-[calc(env(safe-area-inset-bottom)+var(--spacing-3))]">
         {TABS.map((t) => {
           const active = isActive(pathname, t.href);
+          const icon =
+            t.key === "home"
+              ? "🏠"
+              : t.key === "presale"
+              ? "🏗️"
+              : t.key === "ourhome"
+              ? "🏡"
+              : "❤️";
 
           if (!t.href || t.disabled) {
             return (
@@ -50,19 +58,11 @@ export default function MainTabBar() {
                 key={t.key}
                 type="button"
                 disabled
-                className="flex flex-1 flex-col items-center justify-center gap-[var(--spacing-1)] text-[length:var(--font-size-sm)] text-gray-400"
+                className="flex min-h-[44px] flex-1 flex-col items-center justify-center gap-1 rounded-[var(--border-radius-xl)] px-2 py-2 text-[var(--font-size-xs)] text-[color:var(--muted-foreground)] opacity-60"
                 aria-disabled="true"
               >
-                <span className="text-[length:var(--font-size-xl)]">
-                  {t.key === "home"
-                    ? "🏠"
-                    : t.key === "presale"
-                    ? "🏗️"
-                    : t.key === "ourhome"
-                    ? "🏡"
-                    : "❤️"}
-                </span>
-                <span className="font-medium">{t.label}</span>
+                <span className="text-[18px] leading-none">{icon}</span>
+                <span className="font-medium leading-[14px]">{t.label}</span>
               </button>
             );
           }
@@ -72,21 +72,18 @@ export default function MainTabBar() {
               key={t.key}
               href={t.href}
               aria-current={active ? "page" : undefined}
-              className={[
-                "flex flex-1 flex-col items-center justify-center gap-[var(--spacing-1)] text-[length:var(--font-size-sm)]",
-                active ? "font-semibold text-gray-900" : "text-gray-600",
-              ].join(" ")}
+              className={(() => {
+                const base =
+                  "flex min-h-[44px] flex-1 flex-col items-center justify-center gap-1 rounded-[var(--border-radius-xl)] px-2 py-2 text-[var(--font-size-xs)]";
+                const tone = active
+                  ? "bg-[color:var(--accent)] text-[color:var(--accent-foreground)]"
+                  : "text-[color:var(--muted-foreground)] hover:bg-black/5 active:bg-black/10";
+                const weight = active ? "font-bold" : "font-medium";
+                return [base, tone, weight].join(" ");
+              })()}
             >
-              <span className="text-[length:var(--font-size-xl)]">
-                {t.key === "home"
-                  ? "🏠"
-                  : t.key === "presale"
-                  ? "🏗️"
-                  : t.key === "ourhome"
-                  ? "🏡"
-                  : "❤️"}
-              </span>
-              <span>{t.label}</span>
+              <span className="text-[18px] leading-none">{icon}</span>
+              <span className="leading-[14px]">{t.label}</span>
             </Link>
           );
         })}
